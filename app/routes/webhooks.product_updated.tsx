@@ -1,3 +1,5 @@
+// app/routes/webhooks.product_updated.tsx
+
 import { authenticate } from "../shopify.server";
 
 export const action = async ({ request }: any) => {
