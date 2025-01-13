@@ -27,23 +27,23 @@ api_version = "2024-10"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/create" ]
-  uri = "/webhooks/app/order_created"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_created"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/edited" ]
-  uri = "/webhooks/app/order_edited"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_edited"
 
   [[webhooks.subscriptions]]
   topics = [ "products/update" ]
-  uri = "/webhooks/product_updated"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/product_updated"
 
   [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
-  uri = "/webhooks/app/scopes_update"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/scopes_update"
 
   [[webhooks.subscriptions]]
   topics = [ "app/uninstalled" ]
-  uri = "/webhooks/app/uninstalled"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/uninstalled"
 
 [pos]
 embedded = false
