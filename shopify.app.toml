@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://paragraph-subaru-indicated-hot.trycloudflare.com"
+application_url = "https://stress-fold-franchise-kinda.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_customers,read_orders,read_products,write_customers,write_orders,
 
 [auth]
 redirect_urls = [
-  "https://paragraph-subaru-indicated-hot.trycloudflare.com/auth/callback",
-  "https://paragraph-subaru-indicated-hot.trycloudflare.com/auth/shopify/callback",
-  "https://paragraph-subaru-indicated-hot.trycloudflare.com/api/auth/callback"
+  "https://stress-fold-franchise-kinda.trycloudflare.com/auth/callback",
+  "https://stress-fold-franchise-kinda.trycloudflare.com/auth/shopify/callback",
+  "https://stress-fold-franchise-kinda.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
