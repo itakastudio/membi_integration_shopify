@@ -12,18 +12,20 @@ const shopify = shopifyApp({
   apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
   apiVersion: ApiVersion.October24,
   scopes: process.env.SCOPES?.split(","),
-  appUrl: process.env.SHOPIFY_APP_URL || "",
+  appUrl: process.env.SHOPIFY_APP_URL || "https://heritage-dubai-amongst-mike.trycloudflare.com",
   authPathPrefix: "/auth",
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
-  future: {
-    unstable_newEmbeddedAuthStrategy: true,
-    removeRest: true,
-  },
-  ...(process.env.SHOP_CUSTOM_DOMAIN
-    ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
-    : {}),
+  // future: {
+  //   unstable_newEmbeddedAuthStrategy: true,
+  //   removeRest: true,
+  // },
+  // ...(process.env.SHOP_CUSTOM_DOMAIN
+  //   ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
+  //   : {}),
 });
+
+
 
 export default shopify;
 export const apiVersion = ApiVersion.October24;

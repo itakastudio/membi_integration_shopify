@@ -1,77 +1,173 @@
-// app/routes/shopify.get.product.tsx
+// // app/routes/shopify.get.product.tsx
 
-
-import { LoaderFunctionArgs } from "@remix-run/node";
+// import { LoaderFunctionArgs } from "@remix-run/node";
+import { GraphqlClient, shopify } from "@shopify/shopify-api";
 import { authenticate } from "../shopify.server";
-import { useEffect } from "react";
+// // import { useEffect } from "react";
+// // import createApp from "@shopify/app-bridge";
+// // import { getSessionToken } from "@shopify/app-bridge-utils";
 
+// const shop = "webhook-manager-app.myshopify.com"; // Shop URL from your session
+// const accessToken = "shpua_8ea5f3bf40e5686842839f9213192db4"; // Access token from your session
 
-export async function loader({ request }: LoaderFunctionArgs) {
+// const client = new shopify.clients.Graphql({session});
 
-  console.log("receive an api call");
+// // const client = new GraphqlClient(shop, accessToken); // GraphQL client
 
-  // console.log("Request Headers:", request.headers);
-
-
-  try {
-    const { admin } = await authenticate.admin(request);
-    console.log("shopify authenticate pass, admin", admin);
-
-    const response = await admin.graphql(`{ shop { name } }`);
-    console.log("response", response);
-
-    return response;
-  } catch (error) {
-    console.error("Authentication failed:", error);
-    // Handle error appropriately (e.g., return an error response)
-    return new Response("Authentication failed", { status: 401 });
-  }
-}
-
-
-export default function Index() {
-
-
-  useEffect(() => {
-  })
-
-
-}
-
-// export const loader = async ({ request }: any) => {
-
-//   // console.log("receive an api call, request", request);
-//   console.log("receive an api call");
-//   // console.log("before shopify authenticate, admin", abc);
-
-//   const { admin } = await authenticate.admin(request);
-//   console.log("shopify authenticate pass, admin", admin);
-
-//   const response = await admin.graphql(
-//     `#graphql
-//     query ProductMetafield($namespace: String!, $key: String!, $ownerId: ID!) {
-//       product(id: $ownerId) {
-//         linerMaterial: metafield(namespace: $namespace, key: $key) {
-//           value
+// async function fetchShopDataGraphQL2() {
+//   const query = `
+// {
+//     products(first: 3) {
+//       edges {
+//         node {
+//           id
+//           title
 //         }
 //       }
-//     }`,
+//     }
+//   }
+//   `;
+
+//   try {
+//     const response = await client.query({ data: query });
+//     console.log("Shop data (GraphQL):", response.body);
+//   } catch (err) {
+//     console.error("Error fetching shop data (GraphQL):", err);
+//   }
+// }
+
+
+// export async function loader({ request }: LoaderFunctionArgs) {
+//   console.log("receive an api call");
+//   // const shop = "webhook-manager-app.myshopify.com"; // Shop URL from your session
+//   // const accessToken = "shpua_8ea5f3bf40e5686842839f9213192db4"; // Access token from your session
+
+//   // const client = new Shopify.Clients.Graphql(shop, accessToken); // GraphQL client
+
+//   console.log("request: ", request);
+
+//   fetchShopDataGraphQL()
+//     .then((data) => console.log("Shop data (GraphQL):", data))
+//     .catch((err) => console.error("Error:", err));
+
+//     return null
+// }
+
+// const fetchShopDataGraphQL = async () => {
+
+//   // const url = `https://${shop}/admin/api/2024-10/graphql.json`; // GraphQL endpoint
+//   const url = `https://webhook-manager-app.myshopify.com/admin/api/2024-10/graphql.json`; // GraphQL endpoint
+//   console.log("url", url);
+//   const query = `
 //     {
-//       variables: {
-//         "namespace": "my_fields",
-//         "key": "liner_material",
-//         "ownerId": "gid://shopify/Product/108828309"
-//       },
+//     products(first: 3) {
+//       edges {
+//         node {
+//           id
+//           title
+//         }
+//       }
+//     }
+//   }
+//   `;
+
+//   const response = await fetch(url, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       // "X-Shopify-Access-Token": "accessToken", // Use the access token
+//       "X-Shopify-Access-Token": "shpua_8ea5f3bf40e5686842839f9213192db4", // Use the access token
 //     },
-//   );
+//     body: JSON.stringify({ query }),
+//   });
 
 //   console.log("response", response);
 
+//   if (!response.ok) {
+//     throw new Error(`Failed to fetch data: ${response.statusText}`);
+//   }
+
 //   const data = await response.json();
-
-//   console.log("data", data);
-
-
-
-//   return new Response();
+//   return data;
 // };
+
+
+// app/routes/shopify.get.product.tsx
+
+import { LoaderFunctionArgs } from "@remix-run/node";
+// import { authenticate } from "../shopify.server";
+// import { useEffect } from "react";
+// import createApp from "@shopify/app-bridge";
+// import { getSessionToken } from "@shopify/app-bridge-utils";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  console.log("receive an api call");
+
+
+  // console.log("request: ", request);
+
+  fetchShopDataGraphQL(request)
+    .then((data) => console.log("Shop data (GraphQL):", data))
+    .catch((err) => console.error("Error:", err));
+
+    return null
+}
+
+const fetchShopDataGraphQL = async (request: Request) => {
+  // const shop = "webhook-manager-app.myshopify.com"; // Shop URL from your session
+  // const accessToken = "shpua_8ea5f3bf40e5686842839f9213192db4"; // Access token from your session
+
+  // const url = `https://${shop}/admin/api/2024-10/graphql.json`; // GraphQL endpoint
+  if (!request) {
+    throw new Error("Request is undefined");
+  }
+  const { admin } = await authenticate.admin(request);
+
+  
+
+
+  const url = `https://webhook-manager-app.myshopify.com/admin/api/2024-10/graphql.json`; // GraphQL endpoint
+  console.log("url", url);
+
+
+  const query = `
+    {
+    products(first: 3) {
+      edges {
+        node {
+          id
+          title
+        }
+      }
+    }
+  }
+  `;
+  // const client = new shopify.clients.Graphql("shpua_8ea5f3bf40e5686842839f9213192db4");
+
+  const response = await admin.graphql(query)
+  console.log("response", response);
+
+
+  // const result = await client.query({data: {query}});
+
+  // console.log("result", result);
+
+  // const response = await fetch(url, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     // "X-Shopify-Access-Token": "accessToken", // Use the access token
+  //     "X-Shopify-Access-Token": "shpua_8ea5f3bf40e5686842839f9213192db4", // Use the access token
+  //   },
+  //   body: JSON.stringify({ query }),
+  // });
+
+  // console.log("response", response);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data;
+};
