@@ -1,7 +1,10 @@
 // app/routes/webhooks.app.order_created.tsx
 
 import { authenticate } from "../shopify.server";
-import { Pool,QueryResult } from "pg";
+import pkg from "pg";
+const { Pool } = pkg;
+import type { QueryResult } from "pg";
+
 // 建立 PostgreSQL 連線池
 const pool = new Pool({
   user: process.env.PG_USER,
