@@ -20,7 +20,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 
   fetchShopDataGraphQL(shop, accessToken)
-    .then((data) => console.log("Shop data (GraphQL):", data.data.products.edges))
+    .then((data) => console.log("Shop data (GraphQL):", data.data))
     .catch((err) => console.error("Error:", err));
 
   return null;
@@ -59,7 +59,7 @@ const fetchShopDataGraphQL = async (shop: string, storeAccessToken: string) => {
   });
 
   const data = await response.json();
-  console.log("data", data.data.products.edges);
+  console.log("data", data.data);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
