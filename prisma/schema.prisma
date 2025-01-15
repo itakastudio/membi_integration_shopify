@@ -1,32 +1,363 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
-// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
-// enough when changing adapters.
-// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.sqlite"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model Session {
-  id            String    @id
-  shop          String
-  state         String
-  isOnline      Boolean   @default(false)
-  scope         String?
-  expires       DateTime?
-  accessToken   String
-  userId        BigInt?
-  firstName     String?
-  lastName      String?
-  email         String?
-  accountOwner  Boolean   @default(false)
-  locale        String?
-  collaborator  Boolean?  @default(false)
-  emailVerified Boolean?  @default(false)
+model admin_login {
+  login_id              Int         @id @default(autoincrement())
+  admin_name            String      @unique(map: "admin_login_admin_phone_key")
+  admin_password_hash   String
+  last_login            DateTime?   @db.Timestamptz(6)
+  admin_role_id         Int?
+  failed_login_attempts Int?        @default(0)
+  created_at            DateTime?   @default(now()) @db.Timestamptz(6)
+  admin_id              Int?        @default(dbgenerated("login_id"))
+  admin_role            admin_role? @relation(fields: [admin_role_id], references: [admin_role_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model admin_role {
+  admin_role_id     Int           @id @default(autoincrement())
+  admin_role_access String        @unique
+  admin_login       admin_login[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model admin_setting {
+  admin_setting_id         Int     @id @default(autoincrement())
+  membership_extend_method Int
+  membership_end_result    Int
+  membership_period        Int     @default(12)
+  wati_end_point           String?
+  wati_access_token        String?
+}
+
+model broadcast {
+  broadcast_id      Int                   @id @default(autoincrement())
+  broadcast_name    String
+  create_at         DateTime?             @default(now()) @db.Timestamptz(6)
+  create_by         String?
+  discount_code     String?
+  wati_template     String?
+  wati_account      String?
+  wati_number       String?
+  broadcast_now     Boolean?              @default(false)
+  scheduled_start   DateTime?             @db.Timestamptz(6)
+  broadcast_status  broadcast_status_enum @default(pending)
+  broadcast_history broadcast_history[]
+}
+
+model broadcast_history {
+  broadcast_history_id     Int                            @id @default(autoincrement())
+  broadcast_id             Int?
+  member_id                Int?
+  sent_at                  DateTime?                      @db.Timestamptz(6)
+  broadcast_history_status broadcast_history_status_enum?
+  updated_at               DateTime?                      @default(now()) @db.Timestamp(6)
+  broadcast                broadcast?                     @relation(fields: [broadcast_id], references: [broadcast_id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model discount_code {
+  discount_code_id          Int                        @id @default(autoincrement())
+  webstore_id               Int?
+  webstore_discount_code_id String?                    @db.VarChar(255)
+  discount_code_name        String?                    @db.VarChar(255)
+  discount_code             String                     @unique @db.VarChar(255)
+  discount_type             discount_type_enum?
+  discount_amount           Decimal?                   @db.Decimal(10, 2)
+  minimum_spending          Decimal?                   @db.Decimal(10, 2)
+  fixed_discount_cap        Decimal?                   @db.Decimal(10, 2)
+  use_limit_type            use_limit_enum?
+  valid_from                DateTime?                  @db.Timestamp(6)
+  valid_until               DateTime?                  @db.Timestamp(6)
+  created_at                DateTime?                  @default(now()) @db.Timestamp(6)
+  updated_at                DateTime?                  @default(now()) @db.Timestamp(6)
+  discount_code_status      discount_code_status_enum?
+  deleted_status            Boolean                    @default(false)
+  discount_code_content     String?
+  discount_code_term        String?
+}
+
+model member {
+  member_id                    Int                     @id @default(autoincrement())
+  created_at                   DateTime?               @default(now()) @db.Timestamptz(6)
+  created_by                   Int?
+  updated_at                   DateTime?               @default(now()) @db.Timestamptz(6)
+  updated_by                   Int?
+  member_phone                 String?                 @unique @db.VarChar(50)
+  member_name                  String?
+  member_referral_code         String?
+  point                        Int?
+  membership_expiry_date       DateTime?               @db.Date
+  referrer_member_id           Int?
+  birthday                     DateTime?               @db.Date
+  member_note                  String?
+  member_tag                   String[]
+  state_code                   Int?
+  membership_tier_id           Int?
+  points_balance               Int?                    @default(0)
+  membership_status            membership_status_enum?
+  is_active                    Int?
+  membership_start_date        DateTime?               @db.Date
+  total_order_amount           Decimal?                @default(0) @db.Decimal
+  total_point_earn             Int?                    @default(0)
+  membership_period_point_earn Int?                    @default(0)
+  membership_tier              membership_tier?        @relation(fields: [membership_tier_id], references: [membership_tier_id])
+  member_login                 member_login[]
+  point_earning_record         point_earning_record[]
+  redemption_record            redemption_record[]
+}
+
+model member_login {
+  login_id              Int       @id @default(autoincrement())
+  member_id             Int
+  member_phone          String    @unique
+  member_password_hash  String
+  last_login            DateTime? @db.Timestamptz(6)
+  failed_login_attempts Int?      @default(0)
+  member                member    @relation(fields: [member_id], references: [member_id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model member_order {
+  order_id              Int                    @id(map: "orders_pkey") @default(autoincrement())
+  webstore_order_id     String?                @db.VarChar(255)
+  customer_name         String?                @db.VarChar(255)
+  total_price           Decimal?               @db.Decimal
+  webstore_order_number String?                @db.VarChar(255)
+  order_created_date    DateTime?              @db.Timestamp(6)
+  order_fulfilled_date  DateTime?              @db.Timestamp(6)
+  delivery_date         DateTime?              @db.Timestamp(6)
+  customer_email        String?                @db.VarChar(255)
+  customer_phone        String?                @db.VarChar(50)
+  customer_address      String?
+  order_discounts       order_discounts[]
+  order_line_items      order_line_items[]
+  point_earning_record  point_earning_record[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model member_point_rule {
+  member_point_rule_id         Int                           @id @default(autoincrement())
+  rule_name                    String                        @unique @db.VarChar(255)
+  rule_type                    String                        @unique(map: "unique_rule_type") @db.VarChar(255)
+  is_active                    Boolean?                      @default(false)
+  created_at                   DateTime?                     @default(now()) @db.Timestamptz(6)
+  updated_at                   DateTime?                     @default(now()) @db.Timestamptz(6)
+  purchase_amount_rule_setting purchase_amount_rule_setting?
+  purchase_count_rule_setting  purchase_count_rule_setting?
+  referral_rule_setting        referral_rule_setting?
+}
+
+model membership_tier {
+  membership_tier_id       Int      @id @default(autoincrement())
+  membership_tier_name     String   @db.VarChar(255)
+  membership_tier_sequence Int      @unique(map: "unique_membership_tier_sequence")
+  require_point            Int
+  extend_membership_point  Int
+  point_multiplier         Decimal  @db.Decimal(10, 2)
+  membership_period        Int
+  original_point           Int?
+  multiplied_point         Int?
+  member                   member[]
+}
+
+model order_discounts {
+  order_discount_id    Int           @id @default(autoincrement())
+  order_id             Int?
+  discount_type        String?       @db.VarChar(255)
+  discount_code        String?       @db.VarChar(255)
+  discount_description String?
+  discount_amount      Decimal?      @db.Decimal
+  discount_value_type  String?       @db.VarChar(50)
+  discount_value       Decimal?      @db.Decimal
+  is_shipping_discount Boolean?      @default(false)
+  member_order         member_order? @relation(fields: [order_id], references: [order_id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model order_line_item_discounts {
+  line_item_discount_id Int               @id(map: "line_item_discounts_pkey") @default(autoincrement())
+  order_line_item_id    Int?
+  discount_type         String?           @db.VarChar(255)
+  discount_code         String?           @db.VarChar(255)
+  discount_description  String?
+  discount_amount       Decimal?          @db.Decimal
+  discount_value_type   String?           @db.VarChar(50)
+  discount_value        Decimal?          @db.Decimal
+  order_line_items      order_line_items? @relation(fields: [order_line_item_id], references: [line_item_id], onDelete: Cascade, onUpdate: NoAction, map: "line_item_discounts_order_line_item_id_fkey")
+}
+
+model order_line_items {
+  line_item_id              Int                         @id @default(autoincrement())
+  order_id                  Int?
+  webstore_line_item_id     String?                     @db.VarChar(255)
+  product_id                String?                     @db.VarChar(255)
+  variant_id                String?                     @db.VarChar(255)
+  sku                       String?                     @db.VarChar(255)
+  item_name                 String?                     @db.VarChar(255)
+  item_qty                  Int?
+  item_unit_price           Decimal?                    @db.Decimal
+  item_subtotal_price       Decimal?                    @db.Decimal
+  item_total_discount       Decimal?                    @db.Decimal
+  item_total_price          Decimal?                    @db.Decimal
+  order_line_item_discounts order_line_item_discounts[]
+  member_order              member_order?               @relation(fields: [order_id], references: [order_id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model point_earning_record {
+  point_earning_id   Int           @id @default(autoincrement())
+  point_earning_date DateTime      @db.Timestamptz(6)
+  rule_type          String        @db.VarChar(255)
+  point_earning      Int
+  order_id           Int?
+  referral_code      String?       @db.VarChar(255)
+  member_id          Int
+  order_phone        String?       @default("") @db.VarChar(50)
+  member             member        @relation(fields: [member_id], references: [member_id], onDelete: NoAction, onUpdate: NoAction)
+  member_order       member_order? @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model purchase_amount_rule_setting {
+  purchase_amount_rule_setting_id Int               @default(autoincrement())
+  member_point_rule_id            Int               @id @unique(map: "purchase_amount_rule_setting_member_point_rule_id_unique")
+  purchase_amount                 Int
+  point_awarded                   Int
+  member_point_rule               member_point_rule @relation(fields: [member_point_rule_id], references: [member_point_rule_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model purchase_count_rule_setting {
+  purchase_count_rule_setting_id Int               @default(autoincrement())
+  member_point_rule_id           Int               @id @unique(map: "purchase_count_rule_setting_member_point_rule_id_unique")
+  purchase_count                 Int
+  point_awarded                  Int
+  member_point_rule              member_point_rule @relation(fields: [member_point_rule_id], references: [member_point_rule_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model redemption_item {
+  redemption_item_id     Int                          @id @default(autoincrement())
+  redemption_item_name   String                       @db.VarChar(255)
+  redemption_type        redemption_type_enum?
+  discount_amount        Decimal?                     @db.Decimal(10, 2)
+  quantity_available     Int?
+  minimum_spending       Decimal?                     @db.Decimal(10, 2)
+  fixed_discount_cap     Decimal?                     @db.Decimal(10, 2)
+  validity_period        Int?
+  valid_from             DateTime?                    @db.Timestamp(6)
+  valid_until            DateTime?                    @db.Timestamp(6)
+  created_at             DateTime?                    @default(now()) @db.Timestamp(6)
+  updated_at             DateTime?                    @default(now()) @db.Timestamp(6)
+  deleted_status         Boolean?                     @default(false)
+  redeem_point           Int?
+  redemption_item_status redemption_item_status_enum?
+  redemption_content     String?
+  redemption_term        String?
+  redemption_record      redemption_record[]
+}
+
+model redemption_record {
+  redemption_record_id    Int              @id @default(autoincrement())
+  member_id               Int?
+  redemption_item_id      Int?
+  received_date           DateTime?        @default(now()) @db.Timestamp(6)
+  redeem_point            Int?
+  redeem_code             String?
+  webstore_redeem_code_id String?
+  end_date                DateTime?        @db.Timestamp(6)
+  member                  member?          @relation(fields: [member_id], references: [member_id], onDelete: NoAction, onUpdate: NoAction)
+  redemption_item         redemption_item? @relation(fields: [redemption_item_id], references: [redemption_item_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model referral_rule_setting {
+  referral_rule_setting_id Int               @default(autoincrement())
+  member_point_rule_id     Int               @id @unique(map: "referral_rule_setting_member_point_rule_id_unique")
+  points_per_referral      Int
+  member_point_rule        member_point_rule @relation(fields: [member_point_rule_id], references: [member_point_rule_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model shop_tokens {
+  shop         String @id
+  access_token String
+}
+
+model wati_template {
+  wati_template_id     Int                   @id @default(autoincrement())
+  template_uuid        String                @unique(map: "wati_template_template_uuid_unique") @db.VarChar(255)
+  element_name         String                @db.VarChar(255)
+  category             String?               @db.VarChar(100)
+  wati_template_status String?               @db.VarChar(50)
+  last_modified        DateTime?             @db.Timestamp(6)
+  template_type        String?               @db.VarChar(50)
+  body                 String?
+  body_original        String?
+  footer               String?
+  button_type          Boolean
+  header_present       Boolean
+  created_at           DateTime?             @default(now()) @db.Timestamp(6)
+  updated_at           DateTime?             @default(now()) @db.Timestamp(6)
+  wati_template_param  wati_template_param[]
+}
+
+model wati_template_param {
+  wati_template_params_id Int           @id @default(autoincrement())
+  wati_template_id        Int
+  param_name              String?       @db.VarChar(255)
+  param_value             String?
+  created_at              DateTime?     @default(now()) @db.Timestamp(6)
+  updated_at              DateTime?     @default(now()) @db.Timestamp(6)
+  wati_template           wati_template @relation(fields: [wati_template_id], references: [wati_template_id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+enum broadcast_history_status_enum {
+  pending
+  sent
+  edited
+  cancelled
+  failed
+}
+
+enum broadcast_status_enum {
+  pending
+  sent
+  all_done
+}
+
+enum discount_code_status_enum {
+  expired
+  active
+  suspended
+  scheduled
+}
+
+enum discount_type_enum {
+  fixed_amount
+  percentage
+}
+
+enum membership_status_enum {
+  expired
+  active
+  suspended
+}
+
+enum redemption_item_status_enum {
+  expired
+  active
+  suspended
+  scheduled
+}
+
+enum redemption_type_enum {
+  fixed_amount
+  percentage
+}
+
+enum use_limit_enum {
+  single_use
+  once_per_customer
+  unlimited
 }
