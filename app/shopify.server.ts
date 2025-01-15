@@ -7,6 +7,10 @@ import {
 import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
 import prisma from "./db.server";
 
+import '@shopify/shopify-api/adapters/node';
+// import { shopifyApi, LATEST_API_VERSION } from '@shopify/shopify-api';
+
+
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
   apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
@@ -16,15 +20,15 @@ const shopify = shopifyApp({
   authPathPrefix: "/auth",
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
-  // future: {
-  //   unstable_newEmbeddedAuthStrategy: true,
-  //   removeRest: true,
-  // },
-  // ...(process.env.SHOP_CUSTOM_DOMAIN
-  //   ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
-  //   : {}),
+  // adminApiAccessToken: "aaa",
+  future: {
+    unstable_newEmbeddedAuthStrategy: true,
+    removeRest: true,
+  },
+  ...(process.env.SHOP_CUSTOM_DOMAIN
+    ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
+    : {}),
 });
-
 
 
 export default shopify;
