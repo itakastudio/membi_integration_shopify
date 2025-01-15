@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://hobbies-classics-hint-participating.trycloudflare.com"
+application_url = "https://cnet-recreation-cop-listed.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,13 +13,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_customers,read_discounts,read_draft_orders,read_gift_cards,write_orders,write_products,write_discounts,write_gift_cards"
+scopes="read_customers,read_orders,read_products,write_customers,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://hobbies-classics-hint-participating.trycloudflare.com/auth/callback",
-  "https://hobbies-classics-hint-participating.trycloudflare.com/auth/shopify/callback",
-  "https://hobbies-classics-hint-participating.trycloudflare.com/api/auth/callback"
+  "https://cnet-recreation-cop-listed.trycloudflare.com/auth/callback",
+  "https://cnet-recreation-cop-listed.trycloudflare.com/auth/shopify/callback",
+  "https://cnet-recreation-cop-listed.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
