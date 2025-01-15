@@ -13,6 +13,12 @@ datasource db {
   url      = "file:dev.sqlite"
 }
 
+// 新增的 PostgreSQL 資料來源
+datasource external {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model Session {
   id            String    @id
   shop          String
