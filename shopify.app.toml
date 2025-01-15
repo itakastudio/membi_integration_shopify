@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://antibody-incomplete-dialog-admit.trycloudflare.com"
+application_url = "https://hobbies-classics-hint-participating.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_customers,read_discounts,read_draft_orders,read_gift_cards,read_o
 
 [auth]
 redirect_urls = [
-  "https://antibody-incomplete-dialog-admit.trycloudflare.com/auth/callback",
-  "https://antibody-incomplete-dialog-admit.trycloudflare.com/auth/shopify/callback",
-  "https://antibody-incomplete-dialog-admit.trycloudflare.com/api/auth/callback"
+  "https://hobbies-classics-hint-participating.trycloudflare.com/auth/callback",
+  "https://hobbies-classics-hint-participating.trycloudflare.com/auth/shopify/callback",
+  "https://hobbies-classics-hint-participating.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
