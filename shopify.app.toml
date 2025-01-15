@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://comedy-alan-refer-publicly.trycloudflare.com"
+application_url = "https://usa-wine-spice-ntsc.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_customers,read_orders,read_products,write_customers,write_orders,
 
 [auth]
 redirect_urls = [
-  "https://comedy-alan-refer-publicly.trycloudflare.com/auth/callback",
-  "https://comedy-alan-refer-publicly.trycloudflare.com/auth/shopify/callback",
-  "https://comedy-alan-refer-publicly.trycloudflare.com/api/auth/callback"
+  "https://usa-wine-spice-ntsc.trycloudflare.com/auth/callback",
+  "https://usa-wine-spice-ntsc.trycloudflare.com/auth/shopify/callback",
+  "https://usa-wine-spice-ntsc.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
@@ -34,16 +34,16 @@ api_version = "2024-10"
   uri = "/webhooks/app/order_edited"
 
   [[webhooks.subscriptions]]
-  topics = [ "products/update" ]
-  uri = "/webhooks/product_updated"
-
-  [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
   uri = "/webhooks/app/scopes_update"
 
   [[webhooks.subscriptions]]
   topics = [ "app/uninstalled" ]
   uri = "/webhooks/app/uninstalled"
+
+  [[webhooks.subscriptions]]
+  topics = [ "products/update" ]
+  uri = "/webhooks/product_updated"
 
 [pos]
 embedded = false
