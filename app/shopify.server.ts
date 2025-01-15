@@ -7,15 +7,20 @@ import {
 import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
 import prisma from "./db.server";
 
+import '@shopify/shopify-api/adapters/node';
+// import { shopifyApi, LATEST_API_VERSION } from '@shopify/shopify-api';
+
+
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
   apiSecretKey: process.env.SHOPIFY_API_SECRET || "",
   apiVersion: ApiVersion.October24,
   scopes: process.env.SCOPES?.split(","),
-  appUrl: process.env.SHOPIFY_APP_URL || "",
+  appUrl: process.env.SHOPIFY_APP_URL || "https://heritage-dubai-amongst-mike.trycloudflare.com",
   authPathPrefix: "/auth",
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
+  // adminApiAccessToken: "aaa",
   future: {
     unstable_newEmbeddedAuthStrategy: true,
     removeRest: true,
@@ -25,9 +30,11 @@ const shopify = shopifyApp({
     : {}),
 });
 
+
 export default shopify;
 export const apiVersion = ApiVersion.October24;
 export const addDocumentResponseHeaders = shopify.addDocumentResponseHeaders;
+export const abc = shopify;
 export const authenticate = shopify.authenticate;
 export const unauthenticated = shopify.unauthenticated;
 export const login = shopify.login;
