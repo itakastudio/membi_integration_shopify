@@ -361,3 +361,15 @@ enum use_limit_enum {
   once_per_customer
   unlimited
 }
+
+model Session {
+  id          String   @id @default(cuid())
+  shop        String
+  state       String
+  isOnline    Boolean
+  scope       String
+  expires     DateTime?
+  accessToken String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
