@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://aka-mail-polo-continuing.trycloudflare.com"
+application_url = "https://hz-treasurer-phi-value.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,13 +13,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_customers,read_orders,read_products"
+scopes = "read_customers,read_discounts,read_draft_orders,read_gift_cards,read_orders,read_products,write_discounts,write_gift_cards"
 
 [auth]
 redirect_urls = [
-  "https://aka-mail-polo-continuing.trycloudflare.com/auth/callback",
-  "https://aka-mail-polo-continuing.trycloudflare.com/auth/shopify/callback",
-  "https://aka-mail-polo-continuing.trycloudflare.com/api/auth/callback"
+  "https://hz-treasurer-phi-value.trycloudflare.com/auth/callback",
+  "https://hz-treasurer-phi-value.trycloudflare.com/auth/shopify/callback",
+  "https://hz-treasurer-phi-value.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
