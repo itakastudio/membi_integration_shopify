@@ -1,0 +1,113 @@
+from postman
+
+16:38:35 │                     remix │ receive an api call
+16:38:35 │                     remix │ request Request {
+16:38:35 │                     remix │   method: 'GET',
+16:38:35 │                     remix │   url: 'http://scout-crm-personals-musicians.trycloudflare.com/shopify/get/product',
+16:38:35 │                     remix │   headers: Headers {
+16:38:35 │                     remix │     'x-forwarded-proto': 'https',
+16:38:35 │                     remix │     'x-forwarded-for': '223.197.189.54',
+16:38:35 │                     remix │     'postman-token': 'be796637-b00f-4cd4-90bd-c6bf8d3b48a9',
+16:38:35 │                     remix │     'content-type': 'multipart/form-data;
+boundary=--------------------------276400151545755635256874',
+16:38:35 │                     remix │     connection: 'close',
+16:38:35 │                     remix │     'cf-worker': 'trycloudflare.com',
+16:38:35 │                     remix │     'cf-warp-tag-id': '2498860d-7ebe-49c3-996b-24ab0c827253',
+16:38:35 │                     remix │     'cf-visitor': '{"scheme":"https"}',
+16:38:35 │                     remix │     'cf-ray': '901c4f8641c8095d-HKG',
+16:38:35 │                     remix │     'cf-ipcountry': 'HK',
+16:38:35 │                     remix │     'cf-ew-via': '15',
+16:38:35 │                     remix │     'cf-connecting-ip': '223.197.189.54',
+16:38:35 │                     remix │     'cdn-loop': 'cloudflare; loops=1; subreqs=1',
+16:38:35 │                     remix │     'cache-control': 'no-cache',
+16:38:35 │                     remix │     'accept-encoding': 'gzip',
+16:38:35 │                     remix │     accept: '*/*',
+16:38:35 │                     remix │     'content-length': '192',
+16:38:35 │                     remix │     'user-agent': 'PostmanRuntime/7.43.0',
+16:38:35 │                     remix │     host: 'scout-crm-personals-musicians.trycloudflare.com'
+16:38:35 │                     remix │   },
+16:38:35 │                     remix │   destination: '',
+16:38:35 │                     remix │   referrer: 'about:client',
+16:38:35 │                     remix │   referrerPolicy: '',
+16:38:35 │                     remix │   mode: 'cors',
+16:38:35 │                     remix │   credentials: 'same-origin',
+16:38:35 │                     remix │   cache: 'default',
+16:38:35 │                     remix │   redirect: 'follow',
+16:38:35 │                     remix │   integrity: '',
+16:38:35 │                     remix │   keepalive: false,
+16:38:35 │                     remix │   isReloadNavigation: false,
+16:38:35 │                     remix │   isHistoryNavigation: false,
+16:38:35 │                     remix │   signal: AbortSignal { aborted: false }
+16:38:35 │                     remix │ }
+
+
+
+
+from inside app
+16:39:34 │                     remix │ request Request {
+16:39:34 │                     remix │   method: 'POST',
+16:39:34 │                     remix │   url:
+'https://scout-crm-personals-musicians.trycloudflare.com/app?embedded=1&hmac=37c3aec770a0f9a27a6be9ffe816fe1fd051dcfa5b95e3a10f25
+eaedb9acf902&host=YWRtaW4uc2hvcGlmeS5jb20vc3RvcmUvd2ViaG9vay1tYW5hZ2VyLWFwcA&locale=zh-TW&session=1afffe117d774a1ba4d477e893ec8d3
+a21c9cc7fba905e3415d73e9f9f2b3cf5&shop=webhook-manager-app.myshopify.com&timestamp=1736843602',
+16:39:34 │                     remix │   headers: Headers {
+16:39:34 │                     remix │     'x-requested-with': 'XMLHttpRequest',
+16:39:34 │                     remix │     'x-forwarded-proto': 'https',
+16:39:34 │                     remix │     'x-forwarded-for': '223.197.189.54',
+16:39:34 │                     remix │     'sec-fetch-site': 'same-origin',
+16:39:34 │                     remix │     'sec-fetch-mode': 'cors',
+16:39:34 │                     remix │     'sec-fetch-dest': 'empty',
+16:39:34 │                     remix │     'sec-ch-ua-platform': '"macOS"',
+16:39:34 │                     remix │     'sec-ch-ua-mobile': '?0',
+16:39:34 │                     remix │     'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+16:39:34 │                     remix │     referer:
+'https://scout-crm-personals-musicians.trycloudflare.com/app?embedded=1&hmac=37c3aec770a0f9a27a6be9ffe816fe1fd051dcfa5b95e3a10f25
+eaedb9acf902&host=YWRtaW4uc2hvcGlmeS5jb20vc3RvcmUvd2ViaG9vay1tYW5hZ2VyLWFwcA&locale=zh-TW&session=1afffe117d774a1ba4d477e893ec8d3
+a21c9cc7fba905e3415d73e9f9f2b3cf5&shop=webhook-manager-app.myshopify.com&timestamp=1736843602',
+16:39:34 │                     remix │     priority: 'u=1, i',
+16:39:34 │                     remix │     origin: 'https://scout-crm-personals-musicians.trycloudflare.com',
+16:39:34 │                     remix │     'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+16:39:34 │                     remix │     connection: 'close',
+16:39:34 │                     remix │     'cf-worker': 'trycloudflare.com',
+16:39:34 │                     remix │     'cf-warp-tag-id': '2498860d-7ebe-49c3-996b-24ab0c827253',
+16:39:34 │                     remix │     'cf-visitor': '{"scheme":"https"}',
+16:39:34 │                     remix │     'cf-ray': '901c50f907efddc6-HKG',
+16:39:34 │                     remix │     'cf-ipcountry': 'HK',
+16:39:34 │                     remix │     'cf-ew-via': '15',
+16:39:34 │                     remix │     'cf-connecting-ip': '223.197.189.54',
+16:39:34 │                     remix │     'cdn-loop': 'cloudflare; loops=1; subreqs=1',
+16:39:34 │                     remix │     authorization: 'Bearer
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczpcL1wvd2ViaG9vay1tYW5hZ2VyLWFwcC5teXNob3BpZnkuY29tXC9hZG1pbiIsImRlc3QiOiJo
+dHRwczpcL1wvd2ViaG9vay1tYW5hZ2VyLWFwcC5teXNob3BpZnkuY29tIiwiYXVkIjoiYjU5ZjRiZWRmMTYyMzc1ZDkyNjEwNjNjM2JmMmZlYjEiLCJzdWIiOiIxMTY2N
+TEwMzI4NzYiLCJleHAiOjE3MzY4NDQwMzQsIm5iZiI6MTczNjg0Mzk3NCwiaWF0IjoxNzM2ODQzOTc0LCJqdGkiOiJkNTc4ZWE0MC0wOTBjLTQyYjEtOTNlYy1iNGI5OW
+FhMTE0N2UiLCJzaWQiOiJhNGU5NjAyMy1iYTFkLTQzOTItOGUzMS1lMGE0M2ZlOTk5NzAiLCJzaWciOiJjMmIyZWM3YmZlYTYwYTgwNTEzNGNkYTA0OTMzZDdkZWZlMTU
+0YjVkZmViZDhiZmQ3ZGMzMWY0MzIwNTUyMjcxIn0.OfyO5KxJ73Ex-_y8c_ZVlw7htKe02lc5nDncOuamXvE',
+16:39:34 │                     remix │     'accept-language': 'zh-TW',
+16:39:34 │                     remix │     'accept-encoding': 'gzip',
+16:39:34 │                     remix │     accept: '*/*',
+16:39:34 │                     remix │     'content-length': '0',
+16:39:34 │                     remix │     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
+(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+16:39:34 │                     remix │     host: 'scout-crm-personals-musicians.trycloudflare.com'
+16:39:34 │                     remix │   },
+16:39:34 │                     remix │   destination: '',
+16:39:34 │                     remix │   referrer: 'about:client',
+16:39:34 │                     remix │   referrerPolicy: '',
+16:39:34 │                     remix │   mode: 'cors',
+16:39:34 │                     remix │   credentials: 'same-origin',
+16:39:34 │                     remix │   cache: 'default',
+16:39:34 │                     remix │   redirect: 'follow',
+16:39:34 │                     remix │   integrity: '',
+16:39:34 │                     remix │   keepalive: false,
+16:39:34 │                     remix │   isReloadNavigation: false,
+16:39:34 │                     remix │   isHistoryNavigation: false,
+16:39:34 │                     remix │   signal: AbortSignal { aborted: false }
+16:39:34 │                     remix │ }
+16:39:34 │                     remix │ [shopify-app/INFO] Authenticating admin request | {shop:
+webhook-manager-app.myshopify.com}
+16:39:34 │                     remix │ hello
+16:39:34 │                     remix │ admin { graphql: [AsyncFunction: query] }
+16:39:36 │                     remix │ [shopify-app/INFO] Authenticating admin request | {shop:
+webhook-manager-app.myshopify.com}
+16:39:36 │                     remix │ [shopify-app/INFO] Authenticating admin request | {shop:
+webhook-manager-app.myshopify.com}
