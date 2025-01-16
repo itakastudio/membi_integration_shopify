@@ -1,13 +1,108 @@
 // app/routes/webhooks.app.order_created.tsx
-
+import pool from "app/pg.server";
 import { authenticate } from "../shopify.server";
 
 export const action = async ({ request }: any) => {
   console.log(`Received order_created webhook`);
-  
+
+  // 驗證 Webhook 請求
   const { shop, topic } = await authenticate.webhook(request);
   console.log(`Received order_created webhook for ${shop}`);
   console.log(`Received ${topic} webhook for ${shop}`);
 
-  return new Response();
+  const client = await pool.connect(); // 開始交易
+  try {
+    const orderData = await request.json(); // 獲取請求內容
+
+    if (!orderData) {
+      console.error('Order data is missing');
+      return new Response('Order data is missing', { status: 400 });
+    }
+
+    const shopifyOrderId = orderData.id;
+    const shopifyOrderNumber = orderData.order_number;
+    const orderCreatedDate = orderData.created_at;
+    const orderFulfilledDate = orderData.fulfilled_at || null;
+    const deliveryDate = orderData.delivery_date || null;
+    const totalPrice = orderData.total_price;
+
+    // 處理顧客資訊
+    const customer = orderData.customer || {};
+    const customerName = customer.first_name || customer.last_name 
+      ? `${customer.first_name || ''} ${customer.last_name || ''}`.trim()
+      : 'Guest';
+    const email = customer.email || 'No Email';
+    const phone = customer.phone || 'No Phone';
+    const address = orderData.billing_address
+      ? `${orderData.billing_address.address1 || ''}, ${orderData.billing_address.city || ''}, ${orderData.billing_address.zip || ''}, ${orderData.billing_address.province || ''}, ${orderData.billing_address.country || ''}`.trim()
+      : 'No Address';
+
+    console.log(`Processing order for customer: ${customerName}, Email: ${email}`);
+
+    await client.query('BEGIN'); // 開始交易
+
+    // 檢查訂單是否已經存在
+    console.log(`Checking if order ${shopifyOrderId} exists...`);
+    const orderExists = await client.query(`
+      SELECT * FROM member_order WHERE webstore_order_id = $1
+    `, [shopifyOrderId]);
+
+    if (orderExists && orderExists.rowCount !== null && orderExists.rowCount > 0) {
+      console.log(`Order ${shopifyOrderId} already exists. Skipping insert.`);
+      await client.query('ROLLBACK'); // 回滾交易
+      return new Response('Order already exists', { status: 200 });
+    }
+
+    console.log(`Order ${shopifyOrderId} does not exist. Proceeding with insert.`);
+
+    // 插入訂單資料到資料庫
+    const orderQuery = `
+      INSERT INTO member_order 
+      (webstore_order_id, webstore_order_number, order_created_date, order_fulfilled_date, delivery_date, customer_name, customer_email, customer_phone, customer_address, total_price)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    `;
+    const orderValues = [shopifyOrderId, shopifyOrderNumber, orderCreatedDate, orderFulfilledDate, deliveryDate, customerName, email, phone, address, totalPrice];
+    await client.query(orderQuery, orderValues);
+
+    // 插入商品訊息到資料庫，並記錄每個商品應用的折扣碼
+    const items = orderData.line_items || [];
+    for (const item of items) {
+      const productId = item.product_id || null;
+      const variantId = item.variant_id || null;
+      const itemSubtotalPrice = parseFloat(item.price) * parseInt(item.quantity);
+      const itemTotalDiscount = item.discount_allocations?.reduce((acc: number, discount: { amount: string }) => acc + parseFloat(discount.amount), 0) || 0;
+
+      const itemQuery = `
+        INSERT INTO order_line_items (order_id, webstore_line_item_id, sku, item_name, item_qty, item_unit_price, item_subtotal_price, item_total_discount, product_id, variant_id, item_total_price)
+        VALUES (
+          (SELECT order_id FROM member_order WHERE webstore_order_id = $1 LIMIT 1),
+          $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+        )
+      `;
+      const itemValues = [
+        shopifyOrderId,
+        item.id,
+        item.sku,
+        item.name,
+        parseInt(item.quantity),
+        parseFloat(item.price),
+        itemSubtotalPrice,
+        itemTotalDiscount,
+        productId,
+        variantId,
+        itemSubtotalPrice - itemTotalDiscount
+      ];
+      await client.query(itemQuery, itemValues);
+    }
+
+    await client.query('COMMIT'); // 提交交易
+    console.log('New order created with discounts:', orderData);
+    return new Response('Webhook processed successfully', { status: 200 });
+  } catch (error) {
+    await client.query('ROLLBACK'); // 失敗時回滾交易
+    console.error('Error inserting order into database:', error);
+    return new Response('Internal server error', { status: 500 });
+  } finally {
+    client.release(); // 釋放連接
+  }
 };
