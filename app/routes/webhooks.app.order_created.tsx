@@ -6,14 +6,16 @@ export const action = async ({ request }: any) => {
   console.log(`Received order_created webhook`);
 
   // 驗證 Webhook 請求
-  const { shop, topic } = await authenticate.webhook(request);
-  console.log(`Received order_created webhook for ${shop}`);
-  console.log(`Received ${topic} webhook for ${shop}`);
+  const response = await authenticate.webhook(request);
+  const orderData=response.payload;
+  console.log('Received order_created webhook for ${orderData}')
+  //console.log(`Received order_created webhook for ${shop}`);
+  //console.log(`Received ${topic} webhook for ${shop}`);
 
   const client = await pool.connect(); // 開始交易
+  await client.query("SET search_path TO public;");
   try {
-    const orderData = await request.json(); // 獲取請求內容
-
+    //const orderData = await request.json(); // 獲取請求內容
     if (!orderData) {
       console.error('Order data is missing');
       return new Response('Order data is missing', { status: 400 });
