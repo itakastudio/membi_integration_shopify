@@ -1,15 +1,26 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "162a7b710ceaed839973a2c85e9c317b"
-application_url = "https://olympic-milan-gregory-commercial.trycloudflare.com"
+client_id = "b59f4bedf162375d9261063c3bf2feb1"
+name = "member_integration"
+handle = "member_integration"
+application_url = "https://daughter-engine-pix-charm.trycloudflare.com"
 embedded = true
 name = "Alan_test_only"
 handle = "alan_test_only"
 
 [build]
 include_config_on_deploy = true
-dev_store_url = "webhook-manager-app2.myshopify.com"
-automatically_update_urls_on_dev = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_customers,read_orders,read_products,write_customers,write_orders,write_products"
+
+[auth]
+redirect_urls = [
+  "https://daughter-engine-pix-charm.trycloudflare.com/auth/callback",
+  "https://daughter-engine-pix-charm.trycloudflare.com/auth/shopify/callback",
+  "https://daughter-engine-pix-charm.trycloudflare.com/api/auth/callback"
+]
 
 [webhooks]
 api_version = "2024-10"
