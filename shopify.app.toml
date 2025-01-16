@@ -1,49 +1,49 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "b59f4bedf162375d9261063c3bf2feb1"
-name = "member_integration"
-handle = "member_integration"
-application_url = "https://cnet-recreation-cop-listed.trycloudflare.com"
+client_id = "162a7b710ceaed839973a2c85e9c317b"
+application_url = "https://continue-these-rotation-scale.trycloudflare.com"
 embedded = true
+name = "Alan_test_only"
+handle = "alan_test_only"
 
 [build]
-automatically_update_urls_on_dev = true
-dev_store_url = "webhook-manager-app.myshopify.com"
 include_config_on_deploy = true
-
-[access_scopes]
-# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes="read_customers,read_orders,read_products,write_customers,write_orders,write_products"
-
-[auth]
-redirect_urls = [
-  "https://cnet-recreation-cop-listed.trycloudflare.com/auth/callback",
-  "https://cnet-recreation-cop-listed.trycloudflare.com/auth/shopify/callback",
-  "https://cnet-recreation-cop-listed.trycloudflare.com/api/auth/callback"
-]
+dev_store_url = "webhook-manager-app2.myshopify.com"
+automatically_update_urls_on_dev = true
 
 [webhooks]
 api_version = "2024-10"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/create" ]
-  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_created"
+  uri = "/webhooks/app/order_created"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/edited" ]
-  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_edited"
+  uri = "/webhooks/app/order_edited"
 
   [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
-  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/scopes_update"
+  uri = "/webhooks/app/scopes_update"
 
   [[webhooks.subscriptions]]
   topics = [ "app/uninstalled" ]
-  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/uninstalled"
+  uri = "/webhooks/app/uninstalled"
 
   [[webhooks.subscriptions]]
   topics = [ "products/update" ]
-  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/product_updated"
+  uri = "/webhooks/product_updated"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_customers,read_orders,read_products,write_customers,write_orders,write_products"
+
+[auth]
+redirect_urls = [
+  "https://continue-these-rotation-scale.trycloudflare.com/auth/callback",
+  "https://continue-these-rotation-scale.trycloudflare.com/auth/shopify/callback",
+  "https://continue-these-rotation-scale.trycloudflare.com/api/auth/callback"
+]
 
 [pos]
 embedded = false
