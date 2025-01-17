@@ -4,14 +4,16 @@ import { authenticate } from "../shopify.server";
 
 export const action = async ({ request }: any) => {
   console.log(`Received order_created webhook`);
-
+  
   // 驗證 Webhook 請求
   const response = await authenticate.webhook(request);
   const orderData=response.payload;
   console.log('Received order_created webhook for ${orderData}')
   //console.log(`Received order_created webhook for ${shop}`);
   //console.log(`Received ${topic} webhook for ${shop}`);
-
+  console.log(
+    `Received order_fulfillment webhook for: ${JSON.stringify(orderData, null, 2)}`
+  );
   const client = await pool.connect(); // 開始交易
   await client.query("SET search_path TO public;");
   try {
@@ -95,8 +97,75 @@ export const action = async ({ request }: any) => {
         itemSubtotalPrice - itemTotalDiscount
       ];
       await client.query(itemQuery, itemValues);
-    }
 
+       // 插入與該商品相關的折扣碼
+  const discountApplications = orderData.discount_applications || [];
+  for (const discountApplication of discountApplications) {
+    if (discountApplication.target_type === 'line_item') {
+      const itemDiscountQuery = `
+        INSERT INTO order_line_item_discounts (order_line_item_id, discount_type, discount_code, discount_description, discount_value_type, discount_amount, discount_value)
+        VALUES (
+          (SELECT line_item_id FROM order_line_items WHERE webstore_line_item_id = $1 LIMIT 1),
+          $2, $3, $4, $5, $6, $7
+        )
+      `;
+      const itemDiscountValues = [
+        item.id,
+        discountApplication.type || 'UNKNOWN', // 正確抓取 discount_type
+        discountApplication.code || 'No Code',
+        'No Description',
+        discountApplication.value_type || 'UNKNOWN', // discount_value_type
+        parseFloat(item.discount_allocations?.reduce(
+          (acc: number, discount: { amount: string }) => acc + parseFloat(discount.amount), 0)) || 0, // discount_amount
+        parseFloat(discountApplication.value) || 0 // discount_value
+      ];
+      await client.query(itemDiscountQuery, itemDiscountValues);
+    }
+  }
+
+  type DiscountApplication = {
+    code?: string; // 折扣碼
+    value_type?: string; // 折扣值類型，例如 "percentage" 或 "fixed_amount"
+    value?: string; // 折扣值
+    target_type?: string; // 折扣目標類型，例如 "line_item" 或 "order"
+  };
+
+  // 插入訂單級別的折扣碼
+  const orderLevelDiscounts = orderData.discount_codes || [];
+const orderDiscountApplications = orderData.discount_applications || [];
+
+for (const discount of orderLevelDiscounts) {
+  // 顯式指定 app 的類型
+  const discountApplication = orderDiscountApplications.find(
+    (app: DiscountApplication) => app.code === discount.code
+  );
+  const discountAmount = parseFloat(discount.amount) || 0;
+  const discountValueType = discountApplication?.value_type || 'UNKNOWN';
+  const discountValue = parseFloat(discountApplication?.value || 0);
+
+  const discountQuery = `
+    INSERT INTO order_discounts (order_id, discount_code, discount_type, discount_amount, discount_description, discount_value_type, discount_value)
+    VALUES (
+      (SELECT order_id FROM member_order WHERE webstore_order_id = $1 LIMIT 1),
+      $2, $3, $4, $5, $6, $7
+    )
+  `;
+  const discountValues = [
+    shopifyOrderId,
+    discount.code || null,
+    discount.type || 'UNKNOWN',
+    discountAmount,
+    'No Description',
+    discountValueType,
+    discountValue,
+  ];
+  await client.query(discountQuery, discountValues);
+}
+
+
+
+    }
+    
     await client.query('COMMIT'); // 提交交易
     console.log('New order created with discounts:', orderData);
     return new Response('Webhook processed successfully', { status: 200 });

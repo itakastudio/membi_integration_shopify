@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://ent-operating-namespace-lets.trycloudflare.com"
+application_url = "https://meets-cheap-republican-pl.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_customers,read_orders,read_products,write_customers,write_orders,
 
 [auth]
 redirect_urls = [
-  "https://ent-operating-namespace-lets.trycloudflare.com/auth/callback",
-  "https://ent-operating-namespace-lets.trycloudflare.com/auth/shopify/callback",
-  "https://ent-operating-namespace-lets.trycloudflare.com/api/auth/callback"
+  "https://meets-cheap-republican-pl.trycloudflare.com/auth/callback",
+  "https://meets-cheap-republican-pl.trycloudflare.com/auth/shopify/callback",
+  "https://meets-cheap-republican-pl.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
@@ -28,6 +28,18 @@ api_version = "2024-10"
   [[webhooks.subscriptions]]
   topics = [ "orders/create" ]
   uri = "/webhooks/app/order_created"
+
+  [[webhooks.subscriptions]]
+  topics = [ "orders/fulfilled" ]
+  uri = "/webhooks/app/order_fulfillment"
+
+    [[webhooks.subscriptions]]
+  topics = [ "orders/update" ]
+  uri = "/webhooks/app/order_update"
+
+    [[webhooks.subscriptions]]
+  topics = [ "orders/delete" ]
+  uri = "/webhooks/app/order_delete"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/edited" ]
