@@ -101,7 +101,18 @@ export const action = async ({ request }: any) => {
        // 插入與該商品相關的折扣碼
   const discountApplications = orderData.discount_applications || [];
   for (const discountApplication of discountApplications) {
+    let discountType = "UNKNOWN";
+// 動態判斷折扣類型
     if (discountApplication.target_type === 'line_item') {
+      discountType = "item_discount";
+  } else if (discountApplication.target_type === "shipping_line") {
+    discountType = "transportation_discount";
+  } else if (discountApplication.target_type === "order") {
+    discountType = "whole_order_discount";
+  } else if (discountApplication.target_type === "cross_item") {
+    discountType = "cross_item_discount";
+  }
+// 插入折扣資料
       const itemDiscountQuery = `
         INSERT INTO order_line_item_discounts (order_line_item_id, discount_type, discount_code, discount_description, discount_value_type, discount_amount, discount_value)
         VALUES (
@@ -111,17 +122,16 @@ export const action = async ({ request }: any) => {
       `;
       const itemDiscountValues = [
         item.id,
-        discountApplication.type || 'UNKNOWN', // 正確抓取 discount_type
+        discountType, // 動態決定的折扣類型
         discountApplication.code || 'No Code',
-        'No Description',
-        discountApplication.value_type || 'UNKNOWN', // discount_value_type
+        discountApplication.description || 'No Description',
+        discountApplication.value_type || 'UNKNOWN', // 折扣值類型
         parseFloat(item.discount_allocations?.reduce(
-          (acc: number, discount: { amount: string }) => acc + parseFloat(discount.amount), 0)) || 0, // discount_amount
-        parseFloat(discountApplication.value) || 0 // discount_value
+          (acc: number, discount: { amount: string }) => acc + parseFloat(discount.amount), 0)) || 0, // 折扣金額
+        parseFloat(discountApplication.value) || 0 // 折扣值
       ];
       await client.query(itemDiscountQuery, itemDiscountValues);
     }
-  }
 
   type DiscountApplication = {
     code?: string; // 折扣碼
@@ -135,6 +145,7 @@ export const action = async ({ request }: any) => {
 const orderDiscountApplications = orderData.discount_applications || [];
 
 for (const discount of orderLevelDiscounts) {
+  let discountType = "whole_order_discount"; // 預設為整單折扣
   // 顯式指定 app 的類型
   const discountApplication = orderDiscountApplications.find(
     (app: DiscountApplication) => app.code === discount.code
@@ -142,7 +153,11 @@ for (const discount of orderLevelDiscounts) {
   const discountAmount = parseFloat(discount.amount) || 0;
   const discountValueType = discountApplication?.value_type || 'UNKNOWN';
   const discountValue = parseFloat(discountApplication?.value || 0);
-
+  if (discountApplication?.target_type === "shipping_line") {
+    discountType = "transportation_discount";
+  } else if (discountApplication?.target_type === "cross_item") {
+    discountType = "cross_item_discount";
+  }
   const discountQuery = `
     INSERT INTO order_discounts (order_id, discount_code, discount_type, discount_amount, discount_description, discount_value_type, discount_value)
     VALUES (
@@ -153,11 +168,11 @@ for (const discount of orderLevelDiscounts) {
   const discountValues = [
     shopifyOrderId,
     discount.code || null,
-    discount.type || 'UNKNOWN',
-    discountAmount,
-    'No Description',
-    discountValueType,
-    discountValue,
+    discountType, // 動態判斷的 discount_type
+    parseFloat(discount.amount) || 0, // 折扣金額
+    discountApplication?.description || "No Description",
+    discountApplication?.value_type || "UNKNOWN", // 折扣值類型
+    parseFloat(discountApplication?.value) || 0 // 折扣值
   ];
   await client.query(discountQuery, discountValues);
 }
