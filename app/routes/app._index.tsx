@@ -15,15 +15,20 @@ export default function HomePage() {
   const handleConnect = async () => {
     if (!membiAccount) return;
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const shop = urlParams.get('shop'); // Extract the shop parameter
+
+
     setIsConnecting(true); // Show loading state for the button
     try {
-      const response = await fetch('https://membi-back-production.up.railway.app/shopify_membi_connect', {
-        method: 'POST',
+      const response = await fetch('http://localhost:3001/tenant/tenant_shopify_info/shopify_membi_connection', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           membiAccount,
+          shop
         }),
       });
 
@@ -44,14 +49,20 @@ export default function HomePage() {
 
   // Function to handle "Save" button click
   const handleSaveSettings = async () => {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const shop = urlParams.get('shop'); // Extract the shop parameter
+
     setIsSaving(true); // Show loading state for the button
+    
     try {
-      const response = await fetch('https://membi-back-production.up.railway.app/shopify_info', {
-        method: 'POST',
+      const response = await fetch('http://localhost:3001/tenant/tenant_shopify_info/shopify_membi_function_setting', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          shop,
           webhookEnabled,
           discountCodeToMembiEnabled,
           discountCodeFromMembiEnabled,
