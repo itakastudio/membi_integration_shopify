@@ -1,26 +1,15 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
+application_url = "https://smoke-ch-sit-bench.trycloudflare.com"
+embedded = true
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://daughter-engine-pix-charm.trycloudflare.com"
-embedded = true
-name = "Alan_test_only"
-handle = "alan_test_only"
 
 [build]
+automatically_update_urls_on_dev = true
+dev_store_url = "webhook-manager-app.myshopify.com"
 include_config_on_deploy = true
-
-[access_scopes]
-# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_customers,read_orders,read_products,write_customers,write_orders,write_products"
-
-[auth]
-redirect_urls = [
-  "https://daughter-engine-pix-charm.trycloudflare.com/auth/callback",
-  "https://daughter-engine-pix-charm.trycloudflare.com/auth/shopify/callback",
-  "https://daughter-engine-pix-charm.trycloudflare.com/api/auth/callback"
-]
 
 [webhooks]
 api_version = "2024-10"
@@ -30,8 +19,20 @@ api_version = "2024-10"
   uri = "/webhooks/app/order_created"
 
   [[webhooks.subscriptions]]
+  topics = [ "orders/delete" ]
+  uri = "/webhooks/app/order_delete"
+
+  [[webhooks.subscriptions]]
   topics = [ "orders/edited" ]
   uri = "/webhooks/app/order_edited"
+
+  [[webhooks.subscriptions]]
+  topics = [ "orders/fulfilled" ]
+  uri = "/webhooks/app/order_fulfillment"
+
+  [[webhooks.subscriptions]]
+  topics = [ "orders/updated" ]
+  uri = "/webhooks/app/order_update"
 
   [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
@@ -47,13 +48,13 @@ api_version = "2024-10"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_customers,read_orders,read_products,write_customers,write_orders,write_products"
+scopes = "write_customers,write_orders,write_products,write_discounts"
 
 [auth]
 redirect_urls = [
-  "https://olympic-milan-gregory-commercial.trycloudflare.com/auth/callback",
-  "https://olympic-milan-gregory-commercial.trycloudflare.com/auth/shopify/callback",
-  "https://olympic-milan-gregory-commercial.trycloudflare.com/api/auth/callback"
+  "https://smoke-ch-sit-bench.trycloudflare.com/auth/callback",
+  "https://smoke-ch-sit-bench.trycloudflare.com/auth/shopify/callback",
+  "https://smoke-ch-sit-bench.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

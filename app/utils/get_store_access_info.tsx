@@ -5,12 +5,19 @@ import prisma from "../db.server";
 interface storeAccess {
   shop: string;
   accessToken: string;
+  input?: any;
 }
 
 export async function getStoreAccessInfo(request: Request): Promise<storeAccess> {
   console.log("getShopifyAccessToken function begin");
 
-  const shop = request.headers.get("shop");
+  // the request sent from backend need to be with shop in header
+
+  const data = await request.json();
+  console.log("Data from request body:", data);
+
+  const shop = data.shop;
+  const input = data.input;
 
   if (!shop) {
     throw new Error("Missing shop header");
@@ -38,6 +45,7 @@ export async function getStoreAccessInfo(request: Request): Promise<storeAccess>
     const storeAccess = {
       shop: shop,
       accessToken: accessToken,
+      input: input,
     }
 
     return storeAccess
