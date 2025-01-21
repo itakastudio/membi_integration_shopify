@@ -63,10 +63,20 @@ export async function action({ request }: ActionFunctionArgs) {
   console.log("Receive an API call, // shopify.put_discount_code_is_active");
 
   const { shop, accessToken, input } = await getStoreAccessInfo(request);
-  const { shopify_discount_code_id, is_active, valid_from, valid_until } = input;
+
+  console.log("input: ", input);
+  const { webstore_discount_code_id, is_active, valid_from, valid_until } = input;
+
+  console.log("webstore_discount_code_id: ", webstore_discount_code_id);
+  console.log("is_active: ", is_active);
+  console.log("valid_from: ", valid_from);
+  console.log("valid_until: ", valid_until);
 
   try {
+    
     if (is_active) {
+
+      console.log("is_active true is running");
       // Activate the discount code
       const activateResult = await fetch(
         `https://${shop}/admin/api/2024-10/graphql.json`,
@@ -79,7 +89,7 @@ export async function action({ request }: ActionFunctionArgs) {
           body: JSON.stringify({
             query: ACTIVATE_DISCOUNT_CODE_MUTATION,
             variables: {
-              id: shopify_discount_code_id,
+              id: webstore_discount_code_id,
             },
           }),
         }
@@ -111,7 +121,7 @@ export async function action({ request }: ActionFunctionArgs) {
           body: JSON.stringify({
             query: UPDATE_DISCOUNT_CODE_MUTATION,
             variables: {
-              id: shopify_discount_code_id,
+              id: webstore_discount_code_id,
               basicCodeDiscount: {
                 startsAt: valid_from,
                 endsAt: valid_until,
@@ -138,6 +148,9 @@ export async function action({ request }: ActionFunctionArgs) {
         data: updateResponse.data.discountCodeBasicUpdate.codeDiscountNode,
       };
     } else {
+      
+      console.log("is_active false is running");
+      
       // Deactivate the discount code
       const deactivateResult = await fetch(
         `https://${shop}/admin/api/2024-10/graphql.json`,
@@ -150,19 +163,25 @@ export async function action({ request }: ActionFunctionArgs) {
           body: JSON.stringify({
             query: DEACTIVATE_DISCOUNT_CODE_MUTATION,
             variables: {
-              id: shopify_discount_code_id,
+              id: webstore_discount_code_id,
             },
           }),
         }
       );
 
-      const deactivateResponse = await deactivateResult.json();
+      console.log("Deactivate result:", deactivateResult);
+
+      const deactivateData = await deactivateResult.json();
+
+      const deactivateResponse = deactivateData.data?.discountCodeDeactivate
+
+      console.log("deactivateResponse:", deactivateResponse);
 
       if (
-        deactivateResponse.data?.discountCodeDeactivate?.userErrors &&
-        deactivateResponse.data.discountCodeDeactivate.userErrors.length > 0
+        deactivateResponse?.userErrors &&
+        deactivateResponse.userErrors.length > 0
       ) {
-        const errors = deactivateResponse.data.discountCodeDeactivate.userErrors
+        const errors = deactivateResponse.userErrors
           .map((e: { message: string }) => e.message)
           .join(", ");
         throw new Error(`Shopify deactivation error: ${errors}`);
@@ -170,7 +189,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
       return {
         message: "Discount code deactivated successfully.",
-        data: deactivateResponse.data.discountCodeDeactivate.codeDiscountNode,
+        data: deactivateResponse.codeDiscountNode,
       };
     }
   } catch (error: any) {
