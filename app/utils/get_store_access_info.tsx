@@ -14,7 +14,7 @@ export async function getStoreAccessInfo(request: Request): Promise<storeAccess>
   // the request sent from backend need to be with shop in header
 
   const data = await request.json();
-  console.log("Data from request body:", data);
+  // console.log("Data from request body:", data);
 
   const shop = data.shop;
   const input = data.input;

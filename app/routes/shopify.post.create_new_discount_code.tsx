@@ -21,69 +21,7 @@ interface DiscountInput {
   discount_percentage?: number;
 }
 
-export async function action({ request }: ActionFunctionArgs) {
-  console.log(
-    "receive an api call, // app/routes/shopify.post.create_new_discount_code.tsx",
-  );
-
-  const storeAccess: storeAccess = await getStoreAccessInfo(request);
-  const { shop, accessToken, input } = storeAccess;
-  console.log("shop", shop);
-  console.log("storeAccessToken in prisma", accessToken);
-  console.log("input", input);
-
-
-  // const formData = await request.formData();
-  // const input: DiscountInput = {
-  //   discount_code_name: formData.get("discount_code_name") as string,
-  //   discount_code: formData.get("discount_code") as string,
-  //   discount_type: formData.get("discount_type") as
-  //     | "fixed_amount"
-  //     | "percentage",
-  //   minimum_spending: Number(formData.get("minimum_spending")),
-  //   use_limit_type: formData.get("use_limit_type") as
-  //     | "single_use"
-  //     | "once_per_customer"
-  //     | "unlimited",
-  //   valid_from: formData.get("valid_from") as string,
-  //   valid_until: formData.get("valid_until") as string,
-  //   discount_amount: formData.get("discount_amount")
-  //     ? Number(formData.get("discount_amount"))
-  //     : undefined,
-  //   discount_percentage: formData.get("discount_percentage")
-  //     ? Number(formData.get("discount_percentage"))
-  //     : undefined,
-  // };
-
-  try {
-    const createdDiscount = await createShopifyDiscountCode(
-      input!,
-      shop,
-      accessToken,
-    );
-
-    console.log("Discount code created successfully:", createdDiscount);
-
-    const responseData = {
-      createdDiscount,
-      message: "成功於 Shopify 商店建立優惠碼",
-    };
-    return responseData;
-  } catch (error: any) {
-    console.error("Error creating discount code:", error);
-    throw new Error(`${error.message}`);
-  }
-}
-
-const createShopifyDiscountCode = async (
-  input: DiscountInput,
-  shop: string,
-  storeAccessToken: string,
-) => {
-  console.log("createShopifyDiscountCode function start");
-
-  const url = `https://${shop}/admin/api/2024-10/graphql.json`; // GraphQL endpoint
-  const query = `
+const query = `
       mutation discountCodeBasicCreate($basicCodeDiscount: DiscountCodeBasicInput!) {
         discountCodeBasicCreate(basicCodeDiscount: $basicCodeDiscount) {
           codeDiscountNode {
@@ -109,6 +47,47 @@ const createShopifyDiscountCode = async (
         }
       }
     `;
+
+export async function action({ request }: ActionFunctionArgs) {
+  console.log(
+    "receive an api call, // app/routes/shopify.post.create_new_discount_code.tsx",
+  );
+
+  const storeAccess: storeAccess = await getStoreAccessInfo(request);
+  const { shop, accessToken, input } = storeAccess;
+  console.log("shop", shop);
+  console.log("storeAccessToken in prisma", accessToken);
+  console.log("input", input);
+
+  try {
+    const createdDiscount = await createShopifyDiscountCode(
+      input!,
+      shop,
+      accessToken,
+    );
+
+    console.log("Discount code created successfully:", createdDiscount);
+
+    const responseData = {
+      createdDiscount,
+      message: "成功於 Shopify 商店建立優惠碼",
+    };
+    return responseData;
+  } catch (error: any) {
+    console.error("Error creating discount code:", error);
+    throw new Error(`${error.message}`);
+  }
+}
+
+const createShopifyDiscountCode = async (
+  input: DiscountInput,
+  shop: string,
+  accessToken: string,
+) => {
+  console.log("createShopifyDiscountCode function start");
+
+  const url = `https://${shop}/admin/api/2024-10/graphql.json`; // GraphQL endpoint
+  
 
   try {
     let discountValue: any;
@@ -167,7 +146,7 @@ const createShopifyDiscountCode = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Shopify-Access-Token": storeAccessToken, // Use the access token
+        "X-Shopify-Access-Token": accessToken, // Use the access token
         // "X-Shopify-Access-Token": "shpua_e6bd9327bcb8f0a8e72fcd743250ce88", // Use the access token
       },
       body: JSON.stringify({
