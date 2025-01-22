@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://steps-their-strips-cad.trycloudflare.com"
+application_url = "https://complex-americans-atm-reviews.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_customers,read_orders,read_products,write_customers,write_orders,
 
 [auth]
 redirect_urls = [
-  "https://steps-their-strips-cad.trycloudflare.com/auth/callback",
-  "https://steps-their-strips-cad.trycloudflare.com/auth/shopify/callback",
-  "https://steps-their-strips-cad.trycloudflare.com/api/auth/callback"
+  "https://complex-americans-atm-reviews.trycloudflare.com/auth/callback",
+  "https://complex-americans-atm-reviews.trycloudflare.com/auth/shopify/callback",
+  "https://complex-americans-atm-reviews.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

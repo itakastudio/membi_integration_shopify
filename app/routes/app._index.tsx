@@ -1,17 +1,27 @@
 // app/routes/app._index.tsx
 
-import { Page, TextField, Card, BlockStack, Checkbox, Text, Layout, Button, InlineStack,Icon } from '@shopify/polaris';
-import React, { useState } from 'react';
+import { Page, TextField, Card, BlockStack, Checkbox, Text, Layout, Button, InlineStack,
+  // Icon 
+} from '@shopify/polaris';
+import React, { useEffect, useState } from 'react';
 import {
   LinkIcon,
-  SettingsIcon
+  // SettingsIcon
 } from '@shopify/polaris-icons';
 
-const theme = {
-  colors: {
-    primary: '#003366', // 自定義主要按鈕的顏色（深藍色）
-  },
-};
+// const theme = {
+//   colors: {
+//     primary: '#003366', // 自定義主要按鈕的顏色（深藍色）
+//   },
+// };
+
+interface ShopifyMembiSettingResponse {
+  tenant_host: string;
+  fn_w_order_to_membi: boolean;
+  fn_w_discount_to_membi: boolean;
+  fn_discount_to_shopify: boolean;
+}
+
 
 export default function HomePage() {
   const [membiAccount, setMembiAccount] = useState('');
@@ -21,13 +31,50 @@ export default function HomePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
+
+  useEffect(() => {
+    fetchSettings();
+  }, []); // Empty dependency array to run only once
+
+
+  const fetchSettings = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const shop = urlParams.get('shop'); // Extract the shop parameter
+
+    if (!shop) return;
+
+    try {
+      const response = await fetch(`http://localhost:3001/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (response.ok) {
+        const data: ShopifyMembiSettingResponse = await response.json();
+        console.log('Successfully fetched settings:', data);
+
+        // Update state with fetched settings
+        setWebhookEnabled(data.fn_w_order_to_membi);
+        setDiscountCodeToMembiEnabled(data.fn_w_discount_to_membi);
+        setDiscountCodeFromMembiEnabled(data.fn_discount_to_shopify);
+      } else {
+        console.error('Failed to fetch settings:', response.statusText);
+        alert('Failed to fetch settings. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
+
   // Function to handle "Connect" button click
   const handleConnect = async () => {
     if (!membiAccount) return;
 
     const urlParams = new URLSearchParams(window.location.search);
     const shop = urlParams.get('shop'); // Extract the shop parameter
-
 
     setIsConnecting(true); // Show loading state for the button
     try {
@@ -64,7 +111,7 @@ export default function HomePage() {
     const shop = urlParams.get('shop'); // Extract the shop parameter
 
     setIsSaving(true); // Show loading state for the button
-    
+
     try {
       const response = await fetch('http://localhost:3001/tenant/tenant_shopify_info/shopify_membi_function_setting', {
         method: 'PUT',
