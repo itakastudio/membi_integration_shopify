@@ -2,16 +2,7 @@
 
 import { Page, TextField, Card, BlockStack, Checkbox, Text, Layout, Button, InlineStack,Icon } from '@shopify/polaris';
 import React, { useState } from 'react';
-import {
-  LinkIcon,
-  SettingsIcon
-} from '@shopify/polaris-icons';
-
-const theme = {
-  colors: {
-    primary: '#003366', // 自定義主要按鈕的顏色（深藍色）
-  },
-};
+import { LinkIcon} from '@shopify/polaris-icons';
 
 export default function HomePage() {
   const [membiAccount, setMembiAccount] = useState('');
