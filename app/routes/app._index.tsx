@@ -1,7 +1,17 @@
 // app/routes/app._index.tsx
 
-import { Page, TextField, Card, BlockStack, Checkbox, Text, Layout, Button, InlineStack } from '@shopify/polaris';
+import { Page, TextField, Card, BlockStack, Checkbox, Text, Layout, Button, InlineStack,Icon } from '@shopify/polaris';
 import React, { useState } from 'react';
+import {
+  LinkIcon,
+  SettingsIcon
+} from '@shopify/polaris-icons';
+
+const theme = {
+  colors: {
+    primary: '#003366', // 自定義主要按鈕的顏色（深藍色）
+  },
+};
 
 export default function HomePage() {
   const [membiAccount, setMembiAccount] = useState('');
@@ -97,17 +107,30 @@ export default function HomePage() {
               <Text as="span" variant="bodyMd">
                 Please input the Membi account number that you want to connect.
               </Text>
-              <InlineStack gap="200" align="center">
+              <InlineStack gap="200" align="start">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '15px', width: '100%' }}>
+                <label>
+                  Membi Account Number:
+                </label>
+                <div style={{ flexGrow: 1 }}>
                 <TextField
-                  label="Membi Account Number"
+                  label=""
                   value={membiAccount}
                   onChange={(value) => setMembiAccount(value)}
                   placeholder="Enter your Membi account number"
                   autoComplete="off"
                 />
-                <Button onClick={handleConnect} loading={isConnecting} disabled={!membiAccount}>
-                  Connect
-                </Button>
+                </div>
+              </div>
+                <Button
+                onClick={handleConnect}
+                loading={isConnecting}
+                disabled={!membiAccount}
+                icon={LinkIcon}
+                fullWidth
+              >
+                Connect
+              </Button>
               </InlineStack>
             </BlockStack>
           </Card>
@@ -117,10 +140,9 @@ export default function HomePage() {
         <Layout.Section>
           <Card>
             <BlockStack gap="500">
-              <Text as="h2" variant="headingMd">
+            <Text as="h2" variant="headingMd">
                 Functionality Settings
               </Text>
-
               {/* Checkbox 1 */}
               <Checkbox
                 label="Enable webhook Shopify order to Membi account"

@@ -140,8 +140,8 @@ export const action = async ({ request }: any) => {
     target_type?: string; // 折扣目標類型，例如 "line_item" 或 "order"
   };
 
-  // 插入訂單級別的折扣碼
-  const orderLevelDiscounts = orderData.discount_codes || [];
+// 插入訂單級別的折扣碼
+const orderLevelDiscounts = orderData.discount_codes || [];
 const orderDiscountApplications = orderData.discount_applications || [];
 
 for (const discount of orderLevelDiscounts) {
@@ -150,14 +150,18 @@ for (const discount of orderLevelDiscounts) {
   const discountApplication = orderDiscountApplications.find(
     (app: DiscountApplication) => app.code === discount.code
   );
+  // 提取折扣相關資料
   const discountAmount = parseFloat(discount.amount) || 0;
   const discountValueType = discountApplication?.value_type || 'UNKNOWN';
   const discountValue = parseFloat(discountApplication?.value || 0);
-  if (discountApplication?.target_type === "shipping_line") {
-    discountType = "transportation_discount";
-  } else if (discountApplication?.target_type === "cross_item") {
-    discountType = "cross_item_discount";
-  }
+    // 判斷折扣類型
+    if (discountApplication.target_type === "shipping_line") {
+      discountType = "transportation_discount";
+    } else if (discountApplication.target_type === "cross_item") {
+      discountType = "cross_item_discount";
+    } else if (discountApplication.target_type === "line_item") {
+      discountType = "item_discount";
+    }
   const discountQuery = `
     INSERT INTO order_discounts (order_id, discount_code, discount_type, discount_amount, discount_description, discount_value_type, discount_value)
     VALUES (
@@ -168,12 +172,12 @@ for (const discount of orderLevelDiscounts) {
   const discountValues = [
     shopifyOrderId,
     discount.code || null,
-    discountType, // 動態判斷的 discount_type
-    parseFloat(discount.amount) || 0, // 折扣金額
-    discountApplication?.description || "No Description",
-    discountApplication?.value_type || "UNKNOWN", // 折扣值類型
-    parseFloat(discountApplication?.value) || 0 // 折扣值
-  ];
+    discountType,
+    discountAmount,
+    discountApplication.description || "No Description",
+    discountValueType,
+    discountValue
+  ];  
   await client.query(discountQuery, discountValues);
 }
 
