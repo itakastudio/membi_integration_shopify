@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://complex-americans-atm-reviews.trycloudflare.com"
+application_url = "https://copyrighted-implications-theft-racial.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,13 +13,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_customers,read_orders,read_products,write_customers,write_orders,write_products"
+scopes = "write_customers, write_discounts, write_orders, write_products"
 
 [auth]
 redirect_urls = [
-  "https://complex-americans-atm-reviews.trycloudflare.com/auth/callback",
-  "https://complex-americans-atm-reviews.trycloudflare.com/auth/shopify/callback",
-  "https://complex-americans-atm-reviews.trycloudflare.com/api/auth/callback"
+  "https://copyrighted-implications-theft-racial.trycloudflare.com/auth/callback",
+  "https://copyrighted-implications-theft-racial.trycloudflare.com/auth/shopify/callback",
+  "https://copyrighted-implications-theft-racial.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
@@ -27,35 +27,35 @@ api_version = "2024-10"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/create" ]
-  uri = "/webhooks/app/order_created"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_created"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/delete" ]
-  uri = "/webhooks/app/order_delete"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_delete"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/edited" ]
-  uri = "/webhooks/app/order_edited"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_edited"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/fulfilled" ]
-  uri = "/webhooks/app/order_fulfillment"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_fulfillment"
 
   [[webhooks.subscriptions]]
-  topics = [ "orders/update" ]
-  uri = "/webhooks/app/order_update"
+  topics = [ "orders/updated" ]
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_update"
 
   [[webhooks.subscriptions]]
   topics = [ "app/scopes_update" ]
-  uri = "/webhooks/app/scopes_update"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/scopes_update"
 
   [[webhooks.subscriptions]]
   topics = [ "app/uninstalled" ]
-  uri = "/webhooks/app/uninstalled"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/uninstalled"
 
   [[webhooks.subscriptions]]
   topics = [ "products/update" ]
-  uri = "/webhooks/product_updated"
+  uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/product_updated"
 
 [pos]
 embedded = false

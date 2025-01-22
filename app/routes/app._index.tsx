@@ -36,7 +36,7 @@ export default function HomePage() {
     if (!shop) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
+      const response = await fetch(`https://membiintegrationshopify-production.up.railway.app/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -47,6 +47,7 @@ export default function HomePage() {
         const data: ShopifyMembiSettingResponse = await response.json();
         console.log('Successfully fetched settings:', data);
 
+        setMembiAccount(data.tenant_host); // Set Membi account number
         // Update state with fetched settings
         setWebhookEnabled(data.fn_w_order_to_membi);
         setDiscountCodeToMembiEnabled(data.fn_w_discount_to_membi);
@@ -70,7 +71,7 @@ export default function HomePage() {
 
     setIsConnecting(true); // Show loading state for the button
     try {
-      const response = await fetch('http://localhost:3001/tenant/tenant_shopify_info/shopify_membi_connection', {
+      const response = await fetch('https://membiintegrationshopify-production.up.railway.app/tenant/tenant_shopify_info/shopify_membi_connection', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ export default function HomePage() {
     setIsSaving(true); // Show loading state for the button
 
     try {
-      const response = await fetch('http://localhost:3001/tenant/tenant_shopify_info/shopify_membi_function_setting', {
+      const response = await fetch('https://membiintegrationshopify-production.up.railway.app/tenant/tenant_shopify_info/shopify_membi_function_setting', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
