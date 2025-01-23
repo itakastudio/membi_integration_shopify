@@ -1,0 +1,564 @@
+{
+ "id": 6198424240428,
+ "admin_graphql_api_id": "gid://shopify/Order/6198424240428",
+ "app_id": 1354745,
+ "browser_ip": "223.197.189.54",
+ "buyer_accepts_marketing": false,
+ "cancel_reason": null,
+ "cancelled_at": null,
+ "cart_token": null,
+ "checkout_id": 38569589309740,
+ "checkout_token": "5275063760b864198fe377578e287c68",
+ "client_details": {
+   "accept_language": null,
+   "browser_height": null,
+   "browser_ip": "223.197.189.54",
+   "browser_width": null,
+   "session_hash": null,
+   "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+ },
+ "closed_at": null,
+ "company": null,
+ "confirmation_number": "WYRM1KLEJ",
+ "confirmed": true,
+ "contact_email": null,
+ "created_at": "2025-01-23T01:56:00-05:00",
+ "currency": "HKD",
+ "current_shipping_price_set": {
+   "shop_money": {
+     "amount": "55.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "55.00",
+     "currency_code": "HKD"
+   }
+ },
+ "current_subtotal_price": "384.00",
+ "current_subtotal_price_set": {
+   "shop_money": {
+     "amount": "384.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "384.00",
+     "currency_code": "HKD"
+   }
+ },
+ "current_total_additional_fees_set": null,
+ "current_total_discounts": "15.00",
+ "current_total_discounts_set": {
+   "shop_money": {
+     "amount": "15.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "15.00",
+     "currency_code": "HKD"
+   }
+ },
+ "current_total_duties_set": null,
+ "current_total_price": "439.00",
+ "current_total_price_set": {
+   "shop_money": {
+     "amount": "439.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "439.00",
+     "currency_code": "HKD"
+   }
+ },
+ "current_total_tax": "0.00",
+ "current_total_tax_set": {
+   "shop_money": {
+     "amount": "0.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "0.00",
+     "currency_code": "HKD"
+   }
+ },
+ "customer_locale": "zh-TW",
+ "device_id": null,
+ "discount_codes": [
+   {
+     "code": "Alan Test 0123A",
+     "amount": "10.00",
+     "type": "fixed_amount"
+   }
+ ],
+ "duties_included": false,
+ "email": "",
+ "estimated_taxes": false,
+ "financial_status": "paid",
+ "fulfillment_status": null,
+ "landing_site": null,
+ "landing_site_ref": null,
+ "location_id": 103709376812,
+ "merchant_business_entity_id": "MTkxNzQwODY0ODEy",
+ "merchant_of_record_app_id": null,
+ "name": "#1053",
+ "note": null,
+ "note_attributes": [],
+ "number": 53,
+ "order_number": 1053,
+ "order_status_url": "https://webhook-manager-app.myshopify.com/91740864812/orders/b835a6e4fd2be636c2780cb6c9bdf712/authenticate?key=8e02261c6b3b345e553652f475ec1a37",
+ "original_total_additional_fees_set": null,
+ "original_total_duties_set": null,
+ "payment_gateway_names": [
+   "manual"
+ ],
+ "phone": null,
+ "po_number": null,
+ "presentment_currency": "HKD",
+ "processed_at": "2025-01-23T01:56:00-05:00",
+ "reference": null,
+ "referring_site": null,
+ "source_identifier": null,
+ "source_name": "shopify_draft_order",
+ "source_url": null,
+ "subtotal_price": "384.00",
+ "subtotal_price_set": {
+   "shop_money": {
+     "amount": "384.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "384.00",
+     "currency_code": "HKD"
+   }
+ },
+ "tags": "",
+ "tax_exempt": false,
+ "tax_lines": [],
+ "taxes_included": false,
+ "test": false,
+ "token": "b835a6e4fd2be636c2780cb6c9bdf712",
+ "total_cash_rounding_payment_adjustment_set": {
+   "shop_money": {
+     "amount": "0.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "0.00",
+     "currency_code": "HKD"
+   }
+ },
+ "total_cash_rounding_refund_adjustment_set": {
+   "shop_money": {
+     "amount": "0.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "0.00",
+     "currency_code": "HKD"
+   }
+ },
+ "total_discounts": "15.00",
+ "total_discounts_set": {
+   "shop_money": {
+     "amount": "15.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "15.00",
+     "currency_code": "HKD"
+   }
+ },
+ "total_line_items_price": "399.00",
+ "total_line_items_price_set": {
+   "shop_money": {
+     "amount": "399.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "399.00",
+     "currency_code": "HKD"
+   }
+ },
+ "total_outstanding": "0.00",
+ "total_price": "439.00",
+ "total_price_set": {
+   "shop_money": {
+     "amount": "439.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "439.00",
+     "currency_code": "HKD"
+   }
+ },
+ "total_shipping_price_set": {
+   "shop_money": {
+     "amount": "55.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "55.00",
+     "currency_code": "HKD"
+   }
+ },
+ "total_tax": "0.00",
+ "total_tax_set": {
+   "shop_money": {
+     "amount": "0.00",
+     "currency_code": "HKD"
+   },
+   "presentment_money": {
+     "amount": "0.00",
+     "currency_code": "HKD"
+   }
+ },
+ "total_tip_received": "0.00",
+ "total_weight": 0,
+ "updated_at": "2025-01-23T01:56:01-05:00",
+ "user_id": 116651032876,
+ "billing_address": null,
+ "customer": null,
+ "discount_applications": [
+   {
+     "target_type": "line_item",
+     "type": "manual",
+     "value": "10.0",
+     "value_type": "fixed_amount",
+     "allocation_method": "across",
+     "target_selection": "all",
+     "title": "Alan Test 0123A",
+     "description": "Alan Test 0123A"
+   },
+   {
+     "target_type": "line_item",
+     "type": "automatic",
+     "value": "5.0",
+     "value_type": "fixed_amount",
+     "allocation_method": "across",
+     "target_selection": "entitled",
+     "title": "測試discount_type-1"
+   }
+ ],
+ "fulfillments": [],
+ "line_items": [
+   {
+     "id": 15514960888108,
+     "admin_graphql_api_id": "gid://shopify/LineItem/15514960888108",
+     "attributed_staffs": [],
+     "current_quantity": 1,
+     "fulfillable_quantity": 1,
+     "fulfillment_service": "manual",
+     "fulfillment_status": null,
+     "gift_card": false,
+     "grams": 0,
+     "name": "aaa0103測試商品11aa",
+     "price": "99.00",
+     "price_set": {
+       "shop_money": {
+         "amount": "99.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "99.00",
+         "currency_code": "HKD"
+       }
+     },
+     "product_exists": true,
+     "product_id": 9782123692332,
+     "properties": [],
+     "quantity": 1,
+     "requires_shipping": true,
+     "sku": "",
+     "taxable": true,
+     "title": "aaa0103測試商品11aa",
+     "total_discount": "0.00",
+     "total_discount_set": {
+       "shop_money": {
+         "amount": "0.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "0.00",
+         "currency_code": "HKD"
+       }
+     },
+     "variant_id": 50398373085484,
+     "variant_inventory_management": "shopify",
+     "variant_title": null,
+     "vendor": "webhook-manager-app",
+     "tax_lines": [],
+     "duties": [],
+     "discount_allocations": [
+       {
+         "amount": "2.39",
+         "amount_set": {
+           "shop_money": {
+             "amount": "2.39",
+             "currency_code": "HKD"
+           },
+           "presentment_money": {
+             "amount": "2.39",
+             "currency_code": "HKD"
+           }
+         },
+         "discount_application_index": 0
+       },
+       {
+         "amount": "5.00",
+         "amount_set": {
+           "shop_money": {
+             "amount": "5.00",
+             "currency_code": "HKD"
+           },
+           "presentment_money": {
+             "amount": "5.00",
+             "currency_code": "HKD"
+           }
+         },
+         "discount_application_index": 1
+       }
+     ]
+   },
+   {
+     "id": 15514960920876,
+     "admin_graphql_api_id": "gid://shopify/LineItem/15514960920876",
+     "attributed_sta
+14:56:06 │                     remix │ ffs": [],
+     "current_quantity": 1,
+     "fulfillable_quantity": 1,
+     "fulfillment_service": "manual",
+     "fulfillment_status": null,
+     "gift_card": false,
+     "grams": 0,
+     "name": "Green Snowboard",
+     "price": "100.00",
+     "price_set": {
+       "shop_money": {
+         "amount": "100.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "100.00",
+         "currency_code": "HKD"
+       }
+     },
+     "product_exists": true,
+     "product_id": 9797441945900,
+     "properties": [],
+     "quantity": 1,
+     "requires_shipping": true,
+     "sku": "",
+     "taxable": true,
+     "title": "Green Snowboard",
+     "total_discount": "0.00",
+     "total_discount_set": {
+       "shop_money": {
+         "amount": "0.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "0.00",
+         "currency_code": "HKD"
+       }
+     },
+     "variant_id": 50451770802476,
+     "variant_inventory_management": null,
+     "variant_title": null,
+     "vendor": "webhook-manager-app",
+     "tax_lines": [],
+     "duties": [],
+     "discount_allocations": [
+       {
+         "amount": "2.54",
+         "amount_set": {
+           "shop_money": {
+             "amount": "2.54",
+             "currency_code": "HKD"
+           },
+           "presentment_money": {
+             "amount": "2.54",
+             "currency_code": "HKD"
+           }
+         },
+         "discount_application_index": 0
+       }
+     ]
+   },
+   {
+     "id": 15514960953644,
+     "admin_graphql_api_id": "gid://shopify/LineItem/15514960953644",
+     "attributed_staffs": [],
+     "current_quantity": 1,
+     "fulfillable_quantity": 1,
+     "fulfillment_service": "manual",
+     "fulfillment_status": null,
+     "gift_card": false,
+     "grams": 0,
+     "name": "Orange Snowboard",
+     "price": "100.00",
+     "price_set": {
+       "shop_money": {
+         "amount": "100.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "100.00",
+         "currency_code": "HKD"
+       }
+     },
+     "product_exists": true,
+     "product_id": 9799208370476,
+     "properties": [],
+     "quantity": 1,
+     "requires_shipping": true,
+     "sku": "",
+     "taxable": true,
+     "title": "Orange Snowboard",
+     "total_discount": "0.00",
+     "total_discount_set": {
+       "shop_money": {
+         "amount": "0.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "0.00",
+         "currency_code": "HKD"
+       }
+     },
+     "variant_id": 50460159082796,
+     "variant_inventory_management": null,
+     "variant_title": null,
+     "vendor": "webhook-manager-app",
+     "tax_lines": [],
+     "duties": [],
+     "discount_allocations": [
+       {
+         "amount": "2.54",
+         "amount_set": {
+           "shop_money": {
+             "amount": "2.54",
+             "currency_code": "HKD"
+           },
+           "presentment_money": {
+             "amount": "2.54",
+             "currency_code": "HKD"
+           }
+         },
+         "discount_application_index": 0
+       }
+     ]
+   },
+   {
+     "id": 15514960986412,
+     "admin_graphql_api_id": "gid://shopify/LineItem/15514960986412",
+     "attributed_staffs": [],
+     "current_quantity": 1,
+     "fulfillable_quantity": 1,
+     "fulfillment_service": "manual",
+     "fulfillment_status": null,
+     "gift_card": false,
+     "grams": 0,
+     "name": "Red Snowboard",
+     "price": "100.00",
+     "price_set": {
+       "shop_money": {
+         "amount": "100.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "100.00",
+         "currency_code": "HKD"
+       }
+     },
+     "product_exists": true,
+     "product_id": 9800669430060,
+     "properties": [],
+     "quantity": 1,
+     "requires_shipping": true,
+     "sku": "",
+     "taxable": true,
+     "title": "Red Snowboard",
+     "total_discount": "0.00",
+     "total_discount_set": {
+       "shop_money": {
+         "amount": "0.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "0.00",
+         "currency_code": "HKD"
+       }
+     },
+     "variant_id": 50466449883436,
+     "variant_inventory_management": null,
+     "variant_title": null,
+     "vendor": "webhook-manager-app",
+     "tax_lines": [],
+     "duties": [],
+     "discount_allocations": [
+       {
+         "amount": "2.53",
+         "amount_set": {
+           "shop_money": {
+             "amount": "2.53",
+             "currency_code": "HKD"
+           },
+           "presentment_money": {
+             "amount": "2.53",
+             "currency_code": "HKD"
+           }
+         },
+         "discount_application_index": 0
+       }
+     ]
+   }
+ ],
+ "payment_terms": null,
+ "refunds": [],
+ "shipping_address": null,
+ "shipping_lines": [
+   {
+     "id": 4945488642348,
+     "carrier_identifier": null,
+     "code": "custom",
+     "current_discounted_price_set": {
+       "shop_money": {
+         "amount": "55.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "55.00",
+         "currency_code": "HKD"
+       }
+     },
+     "discounted_price": "55.00",
+     "discounted_price_set": {
+       "shop_money": {
+         "amount": "55.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "55.00",
+         "currency_code": "HKD"
+       }
+     },
+     "is_removed": false,
+     "phone": null,
+     "price": "55.00",
+     "price_set": {
+       "shop_money": {
+         "amount": "55.00",
+         "currency_code": "HKD"
+       },
+       "presentment_money": {
+         "amount": "55.00",
+         "currency_code": "HKD"
+       }
+     },
+     "requested_fulfillment_service_id": null,
+     "source": "shopify",
+     "title": "Tran fee",
+     "tax_lines": [],
+     "discount_allocations": []
+   }
+ ],
+ "returns": []}

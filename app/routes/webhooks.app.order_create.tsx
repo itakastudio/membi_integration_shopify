@@ -15,7 +15,7 @@ export const action = async ({ request }: any) => {
   console.log(`backendUrl: `, backendUrl);
 
   try {
-    const response = await fetch(`${backendUrl}/shopify/shopify_webhook/webhook_order_edited`, {
+    const response = await fetch(`${backendUrl}/shopify/shopify_webhook/webhook_order_create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
