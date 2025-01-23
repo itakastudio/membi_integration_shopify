@@ -24,7 +24,7 @@ export default function HomePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const backendUrl = process.env.BACKEND_URL;
+  
 
   useEffect(() => {
     fetchSettings();
@@ -34,12 +34,12 @@ export default function HomePage() {
   const fetchSettings = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const shop = urlParams.get('shop'); // Extract the shop parameter
-
+    const backendUrl = process.env.BACKEND_URL;
     if (!shop) return;
 
     try {
       console.log("backendUrl", backendUrl);
-      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
+      const response = await fetch(`https://${backendUrl}/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -68,13 +68,13 @@ export default function HomePage() {
   // Function to handle "Connect" button click
   const handleConnect = async () => {
     if (!membiAccount) return;
-
+    const backendUrl = process.env.BACKEND_URL;
     const urlParams = new URLSearchParams(window.location.search);
     const shop = urlParams.get('shop'); // Extract the shop parameter
 
     setIsConnecting(true); // Show loading state for the button
     try {
-      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/shopify_membi_connection`, {
+      const response = await fetch(`https://${backendUrl}/tenant/tenant_shopify_info/shopify_membi_connection`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -105,11 +105,11 @@ export default function HomePage() {
 
     const urlParams = new URLSearchParams(window.location.search);
     const shop = urlParams.get('shop'); // Extract the shop parameter
-
+    const backendUrl = process.env.BACKEND_URL;
     setIsSaving(true); // Show loading state for the button
 
     try {
-      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/shopify_membi_function_setting`, {
+      const response = await fetch(`https://${backendUrl}/tenant/tenant_shopify_info/shopify_membi_function_setting`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
