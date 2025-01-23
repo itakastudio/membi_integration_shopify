@@ -1,6 +1,7 @@
 // app/routes/app._index.tsx
 
-import { Page, TextField, Card, BlockStack, Checkbox, Text, Layout, Button, InlineStack,
+import {
+  Page, TextField, Card, BlockStack, Checkbox, Text, Layout, Button, InlineStack,
 } from '@shopify/polaris';
 import React, { useEffect, useState } from 'react';
 import {
@@ -23,6 +24,7 @@ export default function HomePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
+  const backendUrl = process.env.BACKEND_URL;
 
   useEffect(() => {
     fetchSettings();
@@ -36,7 +38,8 @@ export default function HomePage() {
     if (!shop) return;
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
+      console.log("backendUrl", backendUrl);
+      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +74,7 @@ export default function HomePage() {
 
     setIsConnecting(true); // Show loading state for the button
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/tenant/tenant_shopify_info/shopify_membi_connection`, {
+      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/shopify_membi_connection`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +109,7 @@ export default function HomePage() {
     setIsSaving(true); // Show loading state for the button
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/tenant/tenant_shopify_info/shopify_membi_function_setting`, {
+      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/shopify_membi_function_setting`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -148,29 +151,29 @@ export default function HomePage() {
                 Please input the Membi account number that you want to connect.
               </Text>
               <InlineStack gap="200" align="start">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '15px', width: '100%' }}>
-                <label>
-                  Membi Account Number:
-                </label>
-                <div style={{ flexGrow: 1 }}>
-                <TextField
-                  label=""
-                  value={membiAccount}
-                  onChange={(value) => setMembiAccount(value)}
-                  placeholder="Enter your Membi account number"
-                  autoComplete="off"
-                />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', width: '100%' }}>
+                  <label>
+                    Membi Account Number:
+                  </label>
+                  <div style={{ flexGrow: 1 }}>
+                    <TextField
+                      label=""
+                      value={membiAccount}
+                      onChange={(value) => setMembiAccount(value)}
+                      placeholder="Enter your Membi account number"
+                      autoComplete="off"
+                    />
+                  </div>
                 </div>
-              </div>
                 <Button
-                onClick={handleConnect}
-                loading={isConnecting}
-                disabled={!membiAccount}
-                icon={LinkIcon}
-                fullWidth
-              >
-                Connect
-              </Button>
+                  onClick={handleConnect}
+                  loading={isConnecting}
+                  disabled={!membiAccount}
+                  icon={LinkIcon}
+                  fullWidth
+                >
+                  Connect
+                </Button>
               </InlineStack>
             </BlockStack>
           </Card>
@@ -180,7 +183,7 @@ export default function HomePage() {
         <Layout.Section>
           <Card>
             <BlockStack gap="500">
-            <Text as="h2" variant="headingMd">
+              <Text as="h2" variant="headingMd">
                 Functionality Settings
               </Text>
               {/* Checkbox 1 */}
