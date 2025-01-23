@@ -9,7 +9,6 @@ interface storeAccess {
   accessToken: string;
 }
 
-
 export async function loader({ request }: LoaderFunctionArgs) {
   console.log("receive an api call, // app/routes/shopify.get.product");
 
@@ -23,17 +22,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
     .then((data) => console.log("Shop data (GraphQL):", data.data))
     .catch((err) => console.error("Error:", err));
 
-  return null;
-
-  
+  return null;  
 }
-
 
 
 const fetchShopDataGraphQL = async (shop: string, storeAccessToken: string) => {
 
   const url = `https://${shop}/admin/api/2024-10/graphql.json`; // GraphQL endpoint
-  // const url = `https://webhook-manager-app.myshopify.com/admin/api/2024-10/graphql.json`; // GraphQL endpoint
   const query = `
     {
     products(first: 3) {
@@ -52,7 +47,6 @@ const fetchShopDataGraphQL = async (shop: string, storeAccessToken: string) => {
     headers: {
       "Content-Type": "application/json",
       "X-Shopify-Access-Token": storeAccessToken, // Use the access token
-      // "X-Shopify-Access-Token": "shpua_e6bd9327bcb8f0a8e72fcd743250ce88", // Use the access token
       
     },
     body: JSON.stringify({ query }),
