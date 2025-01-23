@@ -1,12 +1,10 @@
-// app/routes/app._index.tsx
-
 import {
   Page, TextField, Card, BlockStack, Checkbox, Text, Layout, Button, InlineStack,
 } from '@shopify/polaris';
 import React, { useEffect, useState } from 'react';
-import {
-  LinkIcon
-} from '@shopify/polaris-icons';
+import { json, LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { LinkIcon } from '@shopify/polaris-icons';
 
 interface ShopifyMembiSettingResponse {
   tenant_host: string;
@@ -15,8 +13,18 @@ interface ShopifyMembiSettingResponse {
   fn_discount_to_shopify: boolean;
 }
 
+export const loader: LoaderFunction = async () => {
+  return json({
+    backendUrl: process.env.BACKEND_URL,
+  });
+};
+
+interface LoaderData {
+  backendUrl: string;
+}
 
 export default function HomePage() {
+  const { backendUrl } = useLoaderData<LoaderData>();
   const [membiAccount, setMembiAccount] = useState('');
   const [webhookEnabled, setWebhookEnabled] = useState(false);
   const [discountCodeToMembiEnabled, setDiscountCodeToMembiEnabled] = useState(false);
@@ -24,22 +32,20 @@ export default function HomePage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
-  
-
   useEffect(() => {
+    console.log("backendUrl", backendUrl);
     fetchSettings();
-  }, []); // Empty dependency array to run only once
-
+  }, [backendUrl]); // Add backendUrl as a dependency
 
   const fetchSettings = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const shop = urlParams.get('shop'); // Extract the shop parameter
-    const backendUrl = process.env.BACKEND_URL;
+    
     if (!shop) return;
 
     try {
       console.log("backendUrl", backendUrl);
-      const response = await fetch(`https://${backendUrl}/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
+      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -68,13 +74,13 @@ export default function HomePage() {
   // Function to handle "Connect" button click
   const handleConnect = async () => {
     if (!membiAccount) return;
-    const backendUrl = process.env.BACKEND_URL;
+    
     const urlParams = new URLSearchParams(window.location.search);
     const shop = urlParams.get('shop'); // Extract the shop parameter
 
     setIsConnecting(true); // Show loading state for the button
     try {
-      const response = await fetch(`https://${backendUrl}/tenant/tenant_shopify_info/shopify_membi_connection`, {
+      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/shopify_membi_connection`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -105,11 +111,11 @@ export default function HomePage() {
 
     const urlParams = new URLSearchParams(window.location.search);
     const shop = urlParams.get('shop'); // Extract the shop parameter
-    const backendUrl = process.env.BACKEND_URL;
+    
     setIsSaving(true); // Show loading state for the button
 
     try {
-      const response = await fetch(`https://${backendUrl}/tenant/tenant_shopify_info/shopify_membi_function_setting`, {
+      const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/shopify_membi_function_setting`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

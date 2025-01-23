@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://copyrighted-implications-theft-racial.trycloudflare.com"
+application_url = "https://superintendent-lots-occasional-promise.trycloudflare.com"
 embedded = true
 
 [build]
@@ -13,13 +13,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_customers, write_discounts, write_orders, write_products"
+scopes = "write_customers,write_discounts,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://copyrighted-implications-theft-racial.trycloudflare.com/auth/callback",
-  "https://copyrighted-implications-theft-racial.trycloudflare.com/auth/shopify/callback",
-  "https://copyrighted-implications-theft-racial.trycloudflare.com/api/auth/callback"
+  "https://superintendent-lots-occasional-promise.trycloudflare.com/auth/callback",
+  "https://superintendent-lots-occasional-promise.trycloudflare.com/auth/shopify/callback",
+  "https://superintendent-lots-occasional-promise.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
