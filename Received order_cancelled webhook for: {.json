@@ -1,0 +1,476 @@
+Received order_cancelled webhook for: {
+   "id": 6198821716268,
+   "admin_graphql_api_id": "gid://shopify/Order/6198821716268",
+   "app_id": 1354745,
+   "browser_ip": "223.197.189.54",
+   "buyer_accepts_marketing": false,
+   "cancel_reason": "customer",
+   "cancelled_at": "2025-01-23T21:57:18-05:00",
+   "cart_token": null,
+   "checkout_id": 38569878290732,
+   "checkout_token": "57d2c5c961eb18fbf1702534d0958c7b",
+   "client_details": {
+     "accept_language": null,
+     "browser_height": null,
+     "browser_ip": "223.197.189.54",
+     "browser_width": null,
+     "session_hash": null,
+     "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+   },
+   "closed_at": "2025-01-23T21:57:18-05:00",
+   "company": null,
+   "confirmation_number": "3NDM1ZT55",
+   "confirmed": true,
+   "contact_email": "it@akastudio.com.hk",
+   "created_at": "2025-01-23T05:18:47-05:00",
+   "currency": "HKD",
+   "current_shipping_price_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "current_subtotal_price": "0.00",
+   "current_subtotal_price_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "current_total_additional_fees_set": null,
+   "current_total_discounts": "0.00",
+   "current_total_discounts_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "current_total_duties_set": null,
+   "current_total_price": "0.00",
+   "current_total_price_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "current_total_tax": "0.00",
+   "current_total_tax_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "customer_locale": "en",
+   "device_id": null,
+   "discount_codes": [],
+   "duties_included": false,
+   "email": "it@akastudio.com.hk",
+   "estimated_taxes": false,
+   "financial_status": "refunded",
+   "fulfillment_status": null,
+   "landing_site": null,
+   "landing_site_ref": null,
+   "location_id": null,
+   "merchant_business_entity_id": "MTkxNzQwODY0ODEy",
+   "merchant_of_record_app_id": null,
+   "name": "#1065",
+   "note": null,
+   "note_attributes": [],
+   "number": 65,
+   "order_number": 1065,
+   "order_status_url":
+"https://webhook-manager-app.myshopify.com/91740864812/orders/8926536597f56525d16c268896c40e32/authenticate?key=54e7a51e5c9658cfdda2e3b4c9474ec3",
+   "original_total_additional_fees_set": null,
+   "original_total_duties_set": null,
+   "payment_gateway_names": [
+     "manual"
+   ],
+   "phone": null,
+   "po_number": null,
+   "presentment_currency": "HKD",
+   "processed_at": "2025-01-23T05:18:47-05:00",
+   "reference": null,
+   "referring_site": null,
+   "source_identifier": null,
+   "source_name": "shopify_draft_order",
+   "source_url": null,
+   "subtotal_price": "99.00",
+   "subtotal_price_set": {
+     "shop_money": {
+       "amount": "99.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "99.00",
+       "currency_code": "HKD"
+     }
+   },
+   "tags": "",
+   "tax_exempt": false,
+   "tax_lines": [],
+   "taxes_included": false,
+   "test": false,
+   "token": "8926536597f56525d16c268896c40e32",
+   "total_cash_rounding_payment_adjustment_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "total_cash_rounding_refund_adjustment_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "total_discounts": "0.00",
+   "total_discounts_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "total_line_items_price": "99.00",
+   "total_line_items_price_set": {
+     "shop_money": {
+       "amount": "99.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "99.00",
+       "currency_code": "HKD"
+     }
+   },
+   "total_outstanding": "0.00",
+   "total_price": "99.00",
+   "total_price_set": {
+     "shop_money": {
+       "amount": "99.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "99.00",
+       "currency_code": "HKD"
+     }
+   },
+   "total_shipping_price_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "total_tax": "0.00",
+   "total_tax_set": {
+     "shop_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     },
+     "presentment_money": {
+       "amount": "0.00",
+       "currency_code": "HKD"
+     }
+   },
+   "total_tip_received": "0.00",
+   "total_weight": 0,
+   "updated_at": "2025-01-23T21:57:18-05:00",
+   "user_id": 116651032876,
+   "billing_address": {
+     "first_name": "Alan",
+     "address1": "",
+     "phone": "+85291451002",
+     "city": "",
+     "zip": null,
+     "province": null,
+     "country": "Hong Kong",
+     "last_name": "",
+     "address2": null,
+     "company": null,
+     "latitude": null,
+     "longitude": null,
+     "name": "Alan",
+     "country_code": "HK",
+     "province_code": null
+   },
+   "customer": {
+     "id": 8658316394796,
+     "email": "it@akastudio.com.hk",
+     "created_at": "2025-01-13T01:27:40-05:00",
+     "updated_at": "2025-01-23T05:18:48-05:00",
+     "first_name": "Alan",
+     "last_name": "",
+     "state": "disabled",
+     "note": null,
+     "verified_email": true,
+     "multipass_identifier": null,
+     "tax_exempt": false,
+     "phone": null,
+     "email_marketing_consent": {
+       "state": "not_subscribed",
+       "opt_in_level": "single_opt_in",
+       "consent_updated_at": null
+     },
+     "sms_marketing_consent": null,
+     "tags": "",
+     "currency": "HKD",
+     "tax_exemptions": [],
+     "admin_graphql_api_id": "gid://shopify/Customer/8658316394796",
+     "default_address": {
+       "id": 10582771663148,
+       "customer_id": 8658316394796,
+       "first_name": "Alan",
+       "last_name": "",
+       "company": "",
+       "address1": "",
+       "address2": "",
+       "city": "",
+       "province": "",
+       "country": "Hong Kong",
+       "zip": "",
+       "phone": "+85291451002",
+       "name": "Alan",
+       "province_code": null,
+       "country_code": "HK",
+       "country_name": "Hong Kong",
+       "default": true
+     }
+   },
+   "discount_applications": [],
+   "fulfillments": [],
+   "line_items": [
+     {
+       "id": 15515765276972,
+       "admin_graphql_api_id": "gid://shopify/LineItem/15515765276972",
+       "attributed_staffs": [],
+       "current_quantity": 0,
+       "fulfillable_quantity": 0,
+       "fulfillment_service": "manual",
+       "fulfillment_status": null,
+       "gift_card": false,
+       "grams": 0,
+       "name": "aaa0103測試商品11aa",
+       "price": "99.00",
+       "price_set": {
+         "shop_money": {
+           "amount": "99.00",
+           "currency_code": "HKD"
+         },
+         "presentment_money": {
+           "amount": "99.00",
+           "currency_code": "HKD"
+         }
+       },
+       "product_exists": true,
+       "product_id": 9782123692332,
+       "properties": [],
+       "quantity": 1,
+       "requires_shipping": true,
+       "sku": "",
+       "taxable": true,
+       "title": "aaa0103測試商品11aa",
+       "total_discount": "0.00",
+       "total_discount_set": {
+         "shop_money": {
+           "amount": "0.00",
+           "currency_code": "HKD"
+         },
+         "presentment_money": {
+           "amount": "0.00",
+           "currency_code": "HKD"
+         }
+       },
+       "variant_id": 50398373085484,
+       "variant_inventory_management": "shopify",
+       "variant_title": null,
+       "vendor": "webhook-manager-app",
+       "tax_lines": [],
+       "dutie
+ s": [],
+       "discount_allocations": []
+     }
+   ],
+   "payment_terms": null,
+   "refunds": [
+     {
+       "id": 982959849772,
+       "admin_graphql_api_id": "gid://shopify/Refund/982959849772",
+       "created_at": "2025-01-23T21:57:17-05:00",
+       "note": "訂單已取消",
+       "order_id": 6198821716268,
+       "processed_at": "2025-01-23T21:57:17-05:00",
+       "restock": true,
+       "total_duties_set": {
+         "shop_money": {
+           "amount": "0.00",
+           "currency_code": "HKD"
+         },
+         "presentment_money": {
+           "amount": "0.00",
+           "currency_code": "HKD"
+         }
+       },
+       "user_id": 116651032876,
+       "order_adjustments": [],
+       "transactions": [
+         {
+           "id": 7555197403436,
+           "admin_graphql_api_id": "gid://shopify/OrderTransaction/7555197403436",
+           "amount": "99.00",
+           "authorization": null,
+           "created_at": "2025-01-23T21:57:17-05:00",
+           "currency": "HKD",
+           "device_id": null,
+           "error_code": null,
+           "gateway": "manual",
+           "kind": "refund",
+           "location_id": null,
+           "message": "Refunded 99.00 HKD from manual gateway",
+           "order_id": 6198821716268,
+           "parent_id": 7553828454700,
+           "payment_id": "#1065.2",
+           "processed_at": "2025-01-23T21:57:17-05:00",
+           "receipt": {},
+           "source_name": "1830279",
+           "status": "success",
+           "test": false,
+           "user_id": 116651032876
+         }
+       ],
+       "refund_line_items": [
+         {
+           "id": 603169489196,
+           "line_item_id": 15515765276972,
+           "location_id": 103709376812,
+           "quantity": 1,
+           "restock_type": "cancel",
+           "subtotal": 99,
+           "subtotal_set": {
+             "shop_money": {
+               "amount": "99.00",
+               "currency_code": "HKD"
+             },
+             "presentment_money": {
+               "amount": "99.00",
+               "currency_code": "HKD"
+             }
+           },
+           "total_tax": 0,
+           "total_tax_set": {
+             "shop_money": {
+               "amount": "0.00",
+               "currency_code": "HKD"
+             },
+             "presentment_money": {
+               "amount": "0.00",
+               "currency_code": "HKD"
+             }
+           },
+           "line_item": {
+             "id": 15515765276972,
+             "admin_graphql_api_id": "gid://shopify/LineItem/15515765276972",
+             "attributed_staffs": [],
+             "current_quantity": 0,
+             "fulfillable_quantity": 0,
+             "fulfillment_service": "manual",
+             "fulfillment_status": null,
+             "gift_card": false,
+             "grams": 0,
+             "name": "aaa0103測試商品11aa",
+             "price": "99.00",
+             "price_set": {
+               "shop_money": {
+                 "amount": "99.00",
+                 "currency_code": "HKD"
+               },
+               "presentment_money": {
+                 "amount": "99.00",
+                 "currency_code": "HKD"
+               }
+             },
+             "product_exists": true,
+             "product_id": 9782123692332,
+             "properties": [],
+             "quantity": 1,
+             "requires_shipping": true,
+             "sku": "",
+             "taxable": true,
+             "title": "aaa0103測試商品11aa",
+             "total_discount": "0.00",
+             "total_discount_set": {
+               "shop_money": {
+                 "amount": "0.00",
+                 "currency_code": "HKD"
+               },
+               "presentment_money": {
+                 "amount": "0.00",
+                 "currency_code": "HKD"
+               }
+             },
+             "variant_id": 50398373085484,
+             "variant_inventory_management": "shopify",
+             "variant_title": null,
+             "vendor": "webhook-manager-app",
+             "tax_lines": [],
+             "duties": [],
+             "discount_allocations": []
+           }
+         }
+       ],
+       "duties": []
+     }
+   ],
+   "shipping_address": {
+     "first_name": "Alan",
+     "address1": "",
+     "phone": "+85291451002",
+     "city": "",
+     "zip": null,
+     "province": null,
+     "country": "Hong Kong",
+     "last_name": "",
+     "address2": null,
+     "company": null,
+     "latitude": null,
+     "longitude": null,
+     "name": "Alan",
+     "country_code": "HK",
+     "province_code": null
+   },
+   "shipping_lines": [],
+   "returns": []
+ }

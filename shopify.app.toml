@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://dead-gain-raises-depend.trycloudflare.com"
+application_url = "https://imperial-ride-investigated-organization.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_customers,write_discounts,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://dead-gain-raises-depend.trycloudflare.com/auth/callback",
-  "https://dead-gain-raises-depend.trycloudflare.com/auth/shopify/callback",
-  "https://dead-gain-raises-depend.trycloudflare.com/api/auth/callback"
+  "https://imperial-ride-investigated-organization.trycloudflare.com/auth/callback",
+  "https://imperial-ride-investigated-organization.trycloudflare.com/auth/shopify/callback",
+  "https://imperial-ride-investigated-organization.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
@@ -32,10 +32,6 @@ api_version = "2024-10"
   [[webhooks.subscriptions]]
   topics = [ "orders/create" ]
   uri = "/webhooks/app/order_create"
-
-  [[webhooks.subscriptions]]
-  topics = [ "orders/delete" ]
-  uri = "/webhooks/app/order_delete"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/edited" ]
