@@ -5,23 +5,19 @@ import prisma from "../db.server";
 interface storeAccess {
   shop: string;
   accessToken: string;
-  input?: any;
 }
 
-export async function getStoreAccessInfo(request: Request): Promise<storeAccess> {
-  console.log("getShopifyAccessToken function begin");
+export async function getStoreAccessInfoWebhook(shop: string): Promise<storeAccess> {
+  console.log("getStoreAccessInfoWebhook function begin");
 
   // the request sent from backend need to be with shop in header
 
-  const data = await request.json();
+  // const data = await request.json();
   // console.log("Data from request body:", data);
 
-  const shop = data.shop;
-  const input = data.input || '';
+  // const shop = data.shop;
+  // const input = data.input || '';
 
-  if (!shop) {
-    throw new Error("Missing shop header");
-  }
   console.log("shop in request: ", shop);
 
   try {
@@ -40,17 +36,16 @@ export async function getStoreAccessInfo(request: Request): Promise<storeAccess>
 
     const { accessToken } = session;
     console.log("Access token:", accessToken);
-    console.log("getShopifyAccessToken function done");
+    console.log("getStoreAccessInfoWebhook function done");
 
     const storeAccess = {
       shop: shop,
       accessToken: accessToken,
-      input: input,
     }
 
     return storeAccess
   } catch (error) {
-    console.error("Error in getShopifyAccessToken function:", error);
+    console.error("Error in getStoreAccessInfoWebhook function:", error);
     throw error;
   }
 }
