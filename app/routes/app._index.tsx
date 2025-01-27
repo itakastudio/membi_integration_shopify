@@ -33,7 +33,7 @@ export default function HomePage() {
   const [isConnecting, setIsConnecting] = useState(false);
 
   useEffect(() => {
-    console.log("backendUrl", backendUrl);
+    // console.log("backendUrl", backendUrl);
     fetchSettings();
   }, [backendUrl]); // Add backendUrl as a dependency
 
@@ -44,7 +44,7 @@ export default function HomePage() {
     if (!shop) return;
 
     try {
-      console.log("backendUrl", backendUrl);
+      // console.log("backendUrl", backendUrl);
       const response = await fetch(`${backendUrl}/tenant/tenant_shopify_info/get_shopify_membi_setting?shop=${shop}`, {
         method: 'GET',
         headers: {
@@ -54,7 +54,7 @@ export default function HomePage() {
 
       if (response.ok) {
         const data: ShopifyMembiSettingResponse = await response.json();
-        console.log('Successfully fetched settings:', data);
+        // console.log('Successfully fetched settings:', data);
 
         setMembiAccount(data.tenant_host); // Set Membi account number
         // Update state with fetched settings

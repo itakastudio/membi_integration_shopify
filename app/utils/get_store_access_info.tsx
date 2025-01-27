@@ -48,7 +48,6 @@ export async function getStoreAccessInfo(request: Request): Promise<storeAccess>
     }
 
     const { accessToken } = session;
-    console.log("Access token:", accessToken);
     console.log("getShopifyAccessToken function done");
 
     const storeAccess = {

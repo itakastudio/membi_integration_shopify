@@ -56,7 +56,6 @@ export async function action({ request }: ActionFunctionArgs) {
   const storeAccess: storeAccess = await getStoreAccessInfo(request);
   const { shop, accessToken, input } = storeAccess;
   console.log("shop", shop);
-  console.log("storeAccessToken in prisma", accessToken);
   console.log("input", input);
 
   try {
@@ -174,13 +173,7 @@ const createShopifyDiscountCode = async (
       throw new Error(`Shopify error: ${errors}`);
     }
 
-    // const webstore_discount_code_id = responseData.codeDiscountNode.id;
-    // console.log("webstore discount code id: ", webstore_discount_code_id);
-    // const codeDiscount = responseData.codeDiscountNode.codeDiscount;
-    // console.log("codeDiscount: ", codeDiscount);
-
     const createdDiscount = responseData.codeDiscountNode;
-    console.log(createdDiscount);
 
     return createdDiscount;
   } catch (error) {

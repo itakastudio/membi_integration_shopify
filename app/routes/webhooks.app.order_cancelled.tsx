@@ -10,11 +10,11 @@ export const action = async ({ request }: any) => {
 
   console.log(`order_cancelled webhook for: `, shop);
   console.log(`order_cancelled webhook for: `, topic);
-  console.log(`order_cancelled webhook payload: `, payload);
+  // console.log(`order_cancelled webhook payload: `, payload);
   // console.log(`order_cancelled webhook payload: `, JSON.stringify(payload, null, 2));
 
   const backendUrl = process.env.BACKEND_URL;
-  console.log(`backendUrl: `, backendUrl);
+  // console.log(`backendUrl: `, backendUrl);
 
   const backendSetting = await getBackendShopifyMembiSetting(shop);
 
@@ -34,8 +34,6 @@ export const action = async ({ request }: any) => {
         payload
       }),
     });
-
-    // console.log(`response: `, response);
 
     if (!response.ok) {
       console.error('Failed to send data to backend:', response.statusText);

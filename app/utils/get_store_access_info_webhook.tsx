@@ -27,7 +27,6 @@ export async function getStoreAccessInfoWebhook(shop: string): Promise<storeAcce
     }
 
     const { accessToken } = session;
-    console.log("Access token:", accessToken);
     console.log("getStoreAccessInfoWebhook function done");
 
     const storeAccess = {
