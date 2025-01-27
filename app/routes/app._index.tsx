@@ -208,7 +208,7 @@ export default function HomePage() {
 
               {/* Checkbox 3 */}
               <Checkbox
-                label="Enable discount code change from Membi"
+                label="Enable discount code creation and change from Membi"
                 checked={discountCodeFromMembiEnabled}
                 onChange={(value) => setDiscountCodeFromMembiEnabled(value)}
               />

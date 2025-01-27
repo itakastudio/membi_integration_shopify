@@ -1,4 +1,5 @@
 // app/routes/webhooks.app.order_create.tsx
+import { getBackendShopifyMembiSetting } from "app/utils/get_backend_shopify_membi_setting";
 import { authenticate } from "../shopify.server";
 
 export const action = async ({ request }: any) => {
@@ -13,6 +14,13 @@ export const action = async ({ request }: any) => {
 
   const backendUrl = process.env.BACKEND_URL;
   console.log(`backendUrl: `, backendUrl);
+
+  const backendSetting = await getBackendShopifyMembiSetting(shop);
+
+  if (!backendSetting.fn_w_order_to_membi) {
+    console.log(`fn_w_order_to_membi is not enabled`);
+    return new Response('fn_w_order_to_membi is not enabled', { status: 200 });
+  }
 
   try {
     const response = await fetch(`${backendUrl}/shopify/shopify_webhook/webhook_order_create`, {
