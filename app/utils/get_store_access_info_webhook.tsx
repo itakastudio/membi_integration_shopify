@@ -10,14 +10,6 @@ interface storeAccess {
 export async function getStoreAccessInfoWebhook(shop: string): Promise<storeAccess> {
   console.log("getStoreAccessInfoWebhook function begin");
 
-  // the request sent from backend need to be with shop in header
-
-  // const data = await request.json();
-  // console.log("Data from request body:", data);
-
-  // const shop = data.shop;
-  // const input = data.input || '';
-
   console.log("shop in request: ", shop);
 
   try {
