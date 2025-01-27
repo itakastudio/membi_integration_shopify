@@ -1,6 +1,7 @@
 // app/utils/shopifyAccessToken.tsx
 
 import prisma from "../db.server";
+import { getBackendShopifyMembiSetting } from "./get_backend_shopify_membi_setting";
 
 interface storeAccess {
   shop: string;
@@ -23,6 +24,14 @@ export async function getStoreAccessInfo(request: Request): Promise<storeAccess>
     throw new Error("Missing shop header");
   }
   console.log("shop in request: ", shop);
+
+
+  const backendSetting = await getBackendShopifyMembiSetting(shop);
+
+  if (!backendSetting.fn_discount_to_shopify) {
+    console.log(`fn_discount_to_shopify is not enabled`);
+    throw new Error('fn_discount_to_shopify is not enabled');
+  }
 
   try {
     console.log("shop", shop);
