@@ -194,17 +194,17 @@ export default function HomePage() {
               </Text>
               {/* Checkbox 1 */}
               <Checkbox
-                label="Enable webhook Shopify order to Membi account"
+                label="Enable webhook Shopify order creation and cancellation to Membi account"
                 checked={webhookEnabled}
                 onChange={(value) => setWebhookEnabled(value)}
               />
 
               {/* Checkbox 2 */}
-              <Checkbox
+              {/* <Checkbox
                 label="Enable discount code change to Membi"
                 checked={discountCodeToMembiEnabled}
                 onChange={(value) => setDiscountCodeToMembiEnabled(value)}
-              />
+              /> */}
 
               {/* Checkbox 3 */}
               <Checkbox
