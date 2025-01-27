@@ -3,7 +3,7 @@
 client_id = "b59f4bedf162375d9261063c3bf2feb1"
 name = "member_integration"
 handle = "member_integration"
-application_url = "https://amounts-those-var-adjustments.trycloudflare.com"
+application_url = "https://electric-techno-particle-even.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "write_customers,write_discounts,write_orders,write_products"
 
 [auth]
 redirect_urls = [
-  "https://amounts-those-var-adjustments.trycloudflare.com/auth/callback",
-  "https://amounts-those-var-adjustments.trycloudflare.com/auth/shopify/callback",
-  "https://amounts-those-var-adjustments.trycloudflare.com/api/auth/callback"
+  "https://electric-techno-particle-even.trycloudflare.com/auth/callback",
+  "https://electric-techno-particle-even.trycloudflare.com/auth/shopify/callback",
+  "https://electric-techno-particle-even.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
@@ -32,10 +32,6 @@ api_version = "2024-10"
   [[webhooks.subscriptions]]
   topics = [ "orders/create" ]
   uri = "/webhooks/app/order_create"
-
-  [[webhooks.subscriptions]]
-  topics = [ "orders/edited" ]
-  uri = "/webhooks/app/order_edited"
 
   [[webhooks.subscriptions]]
   topics = [ "orders/fulfilled" ]
