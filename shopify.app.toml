@@ -25,6 +25,10 @@ redirect_urls = [
 [webhooks]
 api_version = "2024-10"
 
+[[webhooks.subscriptions]]
+compliance_topics = ["customers/data_request", "customers/redact", "shop/redact"]
+uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/compliance"
+
   [[webhooks.subscriptions]]
   topics = [ "orders/cancelled" ]
   uri = "https://membiintegrationshopify-production.up.railway.app/webhooks/app/order_cancelled"
